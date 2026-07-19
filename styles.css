@@ -1,0 +1,200 @@
+/* AiduRight - Mobile-first CSS */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    background: #f5f5f5;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background: #2563eb;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.tagline {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Main content */
+main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* Screens */
+.screen {
+    display: none;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Intro */
+#intro h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#intro p {
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    background: #2563eb;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-secondary {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    color: #666;
+    background: #e5e7eb;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Progress bar */
+.progress-bar {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+
+.progress {
+    height: 100%;
+    background: #2563eb;
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Question container */
+#question-container {
+    min-height: 200px;
+    margin-bottom: 2rem;
+}
+
+#question-container h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Answer options */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.option {
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option:hover {
+    border-color: #2563eb;
+}
+
+.option.selected {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-buttons .btn-primary {
+    flex: 1;
+}
+
+/* Results */
+.result-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.result-card h3 {
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+}
+
+.result-card p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.result-card .learn-more {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+    
+    main {
+        padding: 2rem;
+    }
+    
+    .screen {
+        padding: 2.5rem;
+    }
+}

@@ -368,6 +368,55 @@ function checkEligibility(benefit, fplPercent) {
         }
     }
     
+    // Has disability check
+    if (req.has_disability && answers.has_disability !== 'yes') {
+        return false;
+    }
+    
+    // Has work history check (for SDI, PFL - must be employed or self-employed)
+    if (req.has_work_history) {
+        if (!['employed', 'self_employed'].includes(answers.employment)) {
+            return false;
+        }
+    }
+    
+    // Student or has student children check (for Pell Grant, Cal Grant)
+    if (req.student_or_child_student) {
+        const isStudent = answers.employment === 'student';
+        const hasTeenChildren = (answers.children_ages || []).includes('13-17');
+        if (!isStudent && !hasTeenChildren) {
+            return false;
+        }
+    }
+    
+    // Age OR disability check (for IHSS - 65+ OR has disability)
+    if (req.age_or_disability) {
+        const is65plus = answers.age === '65plus';
+        const hasDisability = answers.has_disability === 'yes';
+        if (!is65plus && !hasDisability) {
+            return false;
+        }
+    }
+    
+    // Age OR disability OR low income check (for transit discounts)
+    if (req.age_or_disability_or_low_income) {
+        const is60plus = answers.age === '60-64' || answers.age === '65plus';
+        const hasDisability = answers.has_disability === 'yes';
+        const lowIncome = fplPercent <= 200;
+        if (!is60plus && !hasDisability && !lowIncome) {
+            return false;
+        }
+    }
+    
+    // Employment or school check (for childcare assistance)
+    if (req.employment_or_school) {
+        const working = ['employed', 'self_employed'].includes(answers.employment);
+        const inSchool = answers.employment === 'student';
+        if (!working && !inSchool) {
+            return false;
+        }
+    }
+    
     return true;
 }
 

@@ -111,6 +111,37 @@ const benefits = [
         ]
     },
     {
+        id: 'summer-ebt',
+        name: 'Summer EBT',
+        category: 'food',
+        description: 'Summer grocery money for kids who get free school meals. About $120 per child loaded onto EBT card.',
+        requirements: {
+            state: ['CA'],
+            has_school_age_children: true
+        },
+        url: 'https://www.cdss.ca.gov/inforesources/summer-ebt',
+        howToApply: [
+            'If your child gets free school meals, you may be auto-enrolled',
+            'Check with your school district',
+            'Benefits come on EBT card during summer months'
+        ]
+    },
+    {
+        id: 'sfsp',
+        name: 'Summer Meals Program',
+        category: 'food',
+        description: 'Free breakfast and lunch for kids during summer at schools, parks, and community centers. No signup needed.',
+        requirements: {
+            has_children: true
+        },
+        url: 'https://www.fns.usda.gov/sfsp/summer-food-service-program',
+        howToApply: [
+            'Find a site near you at SummerMeals.org or text "FOOD" to 304-304',
+            'Just show up - no application or ID needed',
+            'Available to all children 18 and under'
+        ]
+    },
+    {
         id: 'csfp',
         name: 'CSFP (Senior Food Box)',
         category: 'food',
@@ -321,11 +352,10 @@ const benefits = [
         id: 'ihss',
         name: 'IHSS (In-Home Supportive Services)',
         category: 'seniors',
-        description: 'Pays for a caregiver to help you live at home. Can pay family members to be your caregiver.',
+        description: 'Pays for a caregiver to help you live at home. Can pay family members to be your caregiver. For seniors 65+ OR people with disabilities.',
         requirements: {
             state: ['CA'],
-            age: ['65plus'],
-            needs_help_daily: true,
+            age_or_disability: true,
             on_medi_cal: true
         },
         url: 'https://www.cdss.ca.gov/in-home-supportive-services',
@@ -367,6 +397,200 @@ const benefits = [
             'Contact your local Area Agency on Aging',
             'Or call your senior center directly',
             'No income requirement'
+        ]
+    },
+
+    // ========== CHILDCARE & EDUCATION ==========
+    {
+        id: 'head-start',
+        name: 'Head Start / Early Head Start',
+        category: 'childcare',
+        description: 'Free preschool and child development for children 0-5 from low-income families. Includes meals, health screenings, and parent support.',
+        requirements: {
+            income_fpl: 100,
+            has_children_under_5: true
+        },
+        url: 'https://www.benefits.gov/benefit/1904',
+        howToApply: [
+            'Find a Head Start program near you at eclkc.ohs.acf.hhs.gov',
+            'Contact your local program directly',
+            'Priority for families below poverty line'
+        ]
+    },
+    {
+        id: 'ccap',
+        name: 'Childcare Assistance (CalWORKs)',
+        category: 'childcare',
+        description: 'Help paying for childcare while you work or go to school. Part of CalWORKs program.',
+        requirements: {
+            state: ['CA'],
+            has_children: true,
+            income_fpl: 200,
+            employment_or_school: true
+        },
+        url: 'https://www.cdss.ca.gov/inforesources/child-care-and-development',
+        howToApply: [
+            'Apply through your county social services',
+            'Must be working, in school, or in job training',
+            'Copay based on income'
+        ]
+    },
+    {
+        id: 'pell-grant',
+        name: 'Pell Grant',
+        category: 'education',
+        description: 'Free money for college - up to $7,395/year. Does not need to be repaid.',
+        requirements: {
+            income_fpl: 400,
+            student_or_child_student: true
+        },
+        url: 'https://studentaid.gov/understand-aid/types/grants/pell',
+        howToApply: [
+            'Fill out FAFSA at studentaid.gov',
+            'Deadline is June 30 each year',
+            'Award based on family income and college cost'
+        ]
+    },
+    {
+        id: 'cal-grant',
+        name: 'Cal Grant',
+        category: 'education',
+        description: 'California state grant for college students. Up to $14,000+ per year at UC/private schools.',
+        requirements: {
+            state: ['CA'],
+            income_fpl: 400,
+            student_or_child_student: true
+        },
+        url: 'https://www.csac.ca.gov/cal-grants',
+        howToApply: [
+            'File FAFSA and Cal Grant GPA Verification Form',
+            'Deadline is March 2 for high school seniors',
+            'Must maintain minimum GPA'
+        ]
+    },
+
+    // ========== DISABILITY ==========
+    {
+        id: 'ssdi',
+        name: 'SSDI (Social Security Disability)',
+        category: 'disability',
+        description: 'Monthly income for workers who become disabled. Based on your work history. Average payment ~$1,500/month.',
+        requirements: {
+            has_disability: true,
+            has_work_history: true
+        },
+        url: 'https://www.ssa.gov/disability/',
+        howToApply: [
+            'Apply at ssa.gov or local Social Security office',
+            'Gather medical records documenting disability',
+            'Process takes 3-6 months, appeals common'
+        ]
+    },
+    {
+        id: 'sdi',
+        name: 'State Disability Insurance (SDI)',
+        category: 'disability',
+        description: 'Short-term disability payments when you cannot work due to illness, injury, or pregnancy. ~60-70% of wages.',
+        requirements: {
+            state: ['CA'],
+            has_work_history: true
+        },
+        url: 'https://edd.ca.gov/en/disability/',
+        howToApply: [
+            'Apply online at edd.ca.gov within 49 days of disability',
+            'Need certification from doctor',
+            'Benefits last up to 52 weeks'
+        ]
+    },
+    {
+        id: 'pfl',
+        name: 'Paid Family Leave (PFL)',
+        category: 'disability',
+        description: 'Up to 8 weeks paid leave to care for seriously ill family member or bond with new child. ~60-70% of wages.',
+        requirements: {
+            state: ['CA'],
+            has_work_history: true
+        },
+        url: 'https://edd.ca.gov/en/disability/paid-family-leave/',
+        howToApply: [
+            'Apply through EDD after leave begins',
+            'Can be used for new baby, adoption, foster care, or sick family',
+            'Does not provide job protection - check FMLA/CFRA'
+        ]
+    },
+
+    // ========== TRANSPORTATION ==========
+    {
+        id: 'transit-discount',
+        name: 'Reduced Fare Transit',
+        category: 'transportation',
+        description: 'Half-price or discounted bus and train fares for seniors, disabled, and low-income riders.',
+        requirements: {
+            age_or_disability_or_low_income: true
+        },
+        url: 'https://www.transit.dot.gov/',
+        howToApply: [
+            'Contact your local transit agency',
+            'Bring proof of age, disability, or income',
+            'Get a discount ID card'
+        ]
+    },
+    {
+        id: 'paratransit',
+        name: 'Paratransit Services',
+        category: 'transportation',
+        description: 'Door-to-door transportation for people who cannot use regular buses/trains due to disability.',
+        requirements: {
+            has_disability: true
+        },
+        url: 'https://www.transit.dot.gov/regulations-and-guidance/civil-rights-ada/part-37-transportation-services-individuals-disabilities',
+        howToApply: [
+            'Apply through your local transit agency',
+            'Requires eligibility assessment',
+            'Service area usually within 3/4 mile of fixed routes'
+        ]
+    },
+
+    // ========== LEGAL & OTHER ==========
+    {
+        id: 'legal-aid',
+        name: 'Free Legal Aid',
+        category: 'other',
+        description: 'Free lawyers for low-income people. Help with housing, family law, immigration, benefits, and more.',
+        requirements: {
+            income_fpl: 200
+        },
+        url: 'https://www.lawhelpcalifornia.org/',
+        howToApply: [
+            'Find your local legal aid at LawHelpCalifornia.org',
+            'Call 211 for referrals',
+            'Many offer free clinics and hotlines'
+        ]
+    },
+    {
+        id: '211',
+        name: '211 - Community Resource Helpline',
+        category: 'other',
+        description: 'Free helpline connecting you to local services - food, housing, utilities, healthcare, and more. Available 24/7.',
+        requirements: {},
+        url: 'https://www.211.org/',
+        howToApply: [
+            'Dial 2-1-1 from any phone',
+            'Or text your zip code to 898-211',
+            'Or visit 211.org to search online'
+        ]
+    },
+    {
+        id: 'food-bank',
+        name: 'Local Food Banks',
+        category: 'food',
+        description: 'Free groceries from community food banks and pantries. No income verification at most locations.',
+        requirements: {},
+        url: 'https://www.feedingamerica.org/find-your-local-foodbank',
+        howToApply: [
+            'Find a food bank at FeedingAmerica.org',
+            'Or call 211',
+            'Most do not require proof of income'
         ]
     },
 
@@ -431,5 +655,10 @@ const categories = {
     housing: { name: 'Housing', icon: '🏠' },
     utilities: { name: 'Utilities & Internet', icon: '💡' },
     seniors: { name: 'Seniors & Disability', icon: '👴' },
-    tax: { name: 'Tax Credits', icon: '💰' }
+    childcare: { name: 'Childcare', icon: '👶' },
+    education: { name: 'Education', icon: '🎓' },
+    disability: { name: 'Disability & Leave', icon: '♿' },
+    transportation: { name: 'Transportation', icon: '🚌' },
+    tax: { name: 'Tax Credits', icon: '💰' },
+    other: { name: 'Other Resources', icon: '📞' }
 };

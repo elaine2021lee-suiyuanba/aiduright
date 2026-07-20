@@ -176,6 +176,17 @@ main {
     font-weight: 600;
 }
 
+/* Disclaimer box */
+.disclaimer-box {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #92400e;
+}
+
 /* Footer */
 footer {
     text-align: center;

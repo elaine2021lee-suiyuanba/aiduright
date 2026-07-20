@@ -382,6 +382,9 @@ function renderResults(matchedBenefits) {
     
     let html = `<h2>You may qualify for ${matchedBenefits.length} programs</h2>`;
     
+    // Disclaimer
+    html += '<div class="disclaimer-box">⚠️ These are preliminary matches based on basic criteria. Actual eligibility depends on additional factors. Always verify with the official program before applying.</div>';
+    
     if (matchedBenefits.length === 0) {
         html += '<p>Based on your answers, we did not find matching programs. This does not mean you are ineligible - please check official resources or contact 211 for help.</p>';
     } else {

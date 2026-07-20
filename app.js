@@ -123,12 +123,13 @@ const questions = [
         text: 'What is your current employment status?',
         type: 'select',
         options: [
-            { value: 'employed', label: 'Employed' },
+            { value: 'employed', label: 'Employed (full-time or part-time)' },
             { value: 'self_employed', label: 'Self-employed' },
+            { value: 'student_working', label: 'Student with part-time job' },
+            { value: 'student', label: 'Student (not working)' },
             { value: 'unemployed', label: 'Unemployed, looking for work' },
             { value: 'disabled', label: 'Unable to work (disabled)' },
             { value: 'retired', label: 'Retired' },
-            { value: 'student', label: 'Student' },
             { value: 'caregiver', label: 'Caregiver / Stay-at-home parent' }
         ]
     },
@@ -363,7 +364,7 @@ function checkEligibility(benefit, fplPercent) {
     
     // Has earned income (for EITC)
     if (req.has_earned_income) {
-        if (!['employed', 'self_employed'].includes(answers.employment)) {
+        if (!['employed', 'self_employed', 'student_working'].includes(answers.employment)) {
             return false;
         }
     }
@@ -375,14 +376,14 @@ function checkEligibility(benefit, fplPercent) {
     
     // Has work history check (for SDI, PFL - must be employed or self-employed)
     if (req.has_work_history) {
-        if (!['employed', 'self_employed'].includes(answers.employment)) {
+        if (!['employed', 'self_employed', 'student_working'].includes(answers.employment)) {
             return false;
         }
     }
     
     // Student or has student children check (for Pell Grant, Cal Grant)
     if (req.student_or_child_student) {
-        const isStudent = answers.employment === 'student';
+        const isStudent = ['student', 'student_working'].includes(answers.employment);
         const hasTeenChildren = (answers.children_ages || []).includes('13-17');
         if (!isStudent && !hasTeenChildren) {
             return false;
@@ -410,8 +411,8 @@ function checkEligibility(benefit, fplPercent) {
     
     // Employment or school check (for childcare assistance)
     if (req.employment_or_school) {
-        const working = ['employed', 'self_employed'].includes(answers.employment);
-        const inSchool = answers.employment === 'student';
+        const working = ['employed', 'self_employed', 'student_working'].includes(answers.employment);
+        const inSchool = ['student', 'student_working'].includes(answers.employment);
         if (!working && !inSchool) {
             return false;
         }

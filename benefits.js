@@ -626,7 +626,7 @@ const benefits = [
             'Bring all tax documents, ID, Social Security cards',
             'Available January through April'
         ]
-    }
+    },
 
     // ========== VETERANS ==========
     {

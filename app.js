@@ -19,6 +19,17 @@ const backBtn = document.getElementById('back-btn');
 const nextBtn = document.getElementById('next-btn');
 const questionContainer = document.getElementById('question-container');
 const progressBar = document.getElementById('progress');
+const progressBarEl = document.querySelector('.progress-bar');
+const progressLabel = document.getElementById('progress-label');
+const progressCount = document.getElementById('progress-count');
+const fieldError = document.getElementById('field-error');
+
+// Escape user-facing strings before injecting as HTML
+function esc(str) {
+    return String(str).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
 
 // ========== BASIC QUESTIONS (Quick Scan - ~15 questions) ==========
 const basicQuestions = [
@@ -452,42 +463,55 @@ function getVisibleQuestions() {
 function renderQuestion() {
     const visibleQuestions = getVisibleQuestions();
     const q = visibleQuestions[currentQuestion];
-    const progress = ((currentQuestion + 1) / visibleQuestions.length) * 100;
+    const total = visibleQuestions.length;
+    const progress = ((currentQuestion + 1) / total) * 100;
+
+    // Progress bar + step counter
     progressBar.style.width = progress + '%';
-    
-    let modeLabel = questionMode === 'basic' ? 'Quick Scan' : 'Deep Scan';
-    let html = `<div class="question-mode-label">${modeLabel}</div>`;
-    html += `<h3>${q.text}</h3>`;
-    html += '<div class="options">';
-    
-    if (q.type === 'multiselect') {
-        const selected = answers[q.id] || [];
-        q.options.forEach(opt => {
-            const isSelected = selected.includes(opt.value) ? 'selected' : '';
-            html += `<div class="option ${isSelected}" data-value="${opt.value}">${opt.label}</div>`;
-        });
-    } else {
-        q.options.forEach(opt => {
-            const selected = answers[q.id] === opt.value ? 'selected' : '';
-            html += `<div class="option ${selected}" data-value="${opt.value}">${opt.label}</div>`;
-        });
-    }
-    
+    progressLabel.textContent = questionMode === 'basic' ? 'Quick Scan' : 'Deep Scan';
+    progressCount.textContent = `Question ${currentQuestion + 1} of ${total}`;
+    if (progressBarEl) progressBarEl.setAttribute('aria-valuenow', Math.round(progress));
+
+    // Hide any prior validation message
+    fieldError.classList.remove('show');
+
+    const isMulti = q.type === 'multiselect';
+    let html = `<h3 id="q-heading">${esc(q.text)}`;
+    if (isMulti) html += `<span class="hint">Choose all that apply.</span>`;
+    html += `</h3>`;
+    html += `<div class="options" role="${isMulti ? 'group' : 'radiogroup'}" aria-labelledby="q-heading">`;
+
+    const selectedMulti = answers[q.id] || [];
+    q.options.forEach(opt => {
+        const isSelected = isMulti
+            ? selectedMulti.includes(opt.value)
+            : answers[q.id] === opt.value;
+        const role = isMulti ? 'checkbox' : 'radio';
+        html += `<button type="button" class="option ${isSelected ? 'selected' : ''}" `
+            + `data-value="${esc(opt.value)}" data-multi="${isMulti}" `
+            + `role="${role}" aria-checked="${isSelected}">`
+            + `<span class="indicator" aria-hidden="true"></span>`
+            + `<span class="option-label">${esc(opt.label)}</span>`
+            + `</button>`;
+    });
+
     html += '</div>';
     questionContainer.innerHTML = html;
-    
-    // Add click listeners to options
+
+    // Wire up option clicks
     document.querySelectorAll('.option').forEach(opt => {
         opt.addEventListener('click', () => selectOption(q, opt.dataset.value));
     });
-    
-    // Update buttons
+
+    // Update navigation buttons
     backBtn.style.display = currentQuestion === 0 ? 'none' : 'block';
-    nextBtn.textContent = currentQuestion === visibleQuestions.length - 1 ? 'See Results' : 'Next';
+    nextBtn.textContent = currentQuestion === total - 1 ? 'See My Results' : 'Next';
 }
 
 // Select an option
 function selectOption(question, value) {
+    fieldError.classList.remove('show');
+
     if (question.type === 'multiselect') {
         if (!answers[question.id]) answers[question.id] = [];
         const idx = answers[question.id].indexOf(value);
@@ -499,9 +523,16 @@ function selectOption(question, value) {
     } else {
         answers[question.id] = value;
     }
-    
-    // Re-render to update selection
-    renderQuestion();
+
+    // Update selection state in place (keeps focus, avoids re-render flicker)
+    const isMulti = question.type === 'multiselect';
+    document.querySelectorAll('.option').forEach(opt => {
+        const selected = isMulti
+            ? (answers[question.id] || []).includes(opt.dataset.value)
+            : answers[question.id] === opt.dataset.value;
+        opt.classList.toggle('selected', selected);
+        opt.setAttribute('aria-checked', selected);
+    });
 }
 
 // Calculate FPL percentage
@@ -774,47 +805,66 @@ function renderResults(matchedBenefits, isDetailed = false) {
         grouped[b.category].push(b);
     });
     
-    let html = `<h2>🎉 You may qualify for ${matchedBenefits.length} programs</h2>`;
-    
-    // Disclaimer
-    html += '<div class="disclaimer-box">⚠️ These are preliminary matches. Actual eligibility depends on additional factors. Always verify with the official program.</div>';
-    
-    if (matchedBenefits.length === 0) {
-        html += '<p>Based on your answers, we did not find matching programs. This does not mean you are ineligible - please contact 211 for help.</p>';
+    const count = matchedBenefits.length;
+    let html = '';
+
+    if (count === 0) {
+        html += `<div class="results-head">
+            <h2 id="results-heading">No matches found yet</h2>
+        </div>`;
+        html += `<div class="empty-state">
+            <p>Based on your answers, we didn't find matching programs right now. This does <strong>not</strong> mean you're ineligible — many programs have exceptions.</p>
+            <p>Free help is available. Call:</p>
+            <span class="phone">211</span>
+        </div>`;
     } else {
-        html += '<p>Review each program below. Click "Learn how to apply" for next steps.</p>';
-        
+        html += `<div class="results-head">
+            <div class="results-count">${count}</div>
+            <h2 id="results-heading">program${count === 1 ? '' : 's'} you may qualify for</h2>
+            <p>Review each one below and tap “How to apply” for the steps.</p>
+        </div>`;
+
+        html += `<div class="disclaimer-box">
+            <span aria-hidden="true">⚠️</span>
+            <span>These are preliminary matches. Actual eligibility depends on additional factors — always verify with the official program.</span>
+        </div>`;
+
         for (const [catId, catBenefits] of Object.entries(grouped)) {
             const cat = categories[catId];
             if (!cat) continue;
-            html += `<h3 style="margin-top: 1.5rem;">${cat.icon} ${cat.name}</h3>`;
-            
+            html += `<h3 class="category-heading"><span class="cat-icon" aria-hidden="true">${cat.icon}</span> ${esc(cat.name)}</h3>`;
+
             catBenefits.forEach(b => {
-                html += `
-                    <div class="result-card">
-                        <h3>${b.name}</h3>
-                        <p>${b.description}</p>
-                        <a href="${b.url}" target="_blank" class="learn-more">Learn how to apply →</a>
-                    </div>
-                `;
+                const steps = Array.isArray(b.howToApply) ? b.howToApply : [];
+                html += `<div class="result-card">
+                    <h4>${esc(b.name)}</h4>
+                    <p class="card-desc">${esc(b.description)}</p>
+                    <a href="${esc(b.url)}" target="_blank" rel="noopener noreferrer" class="card-link">Visit official site <span aria-hidden="true">→</span></a>`;
+                if (steps.length) {
+                    html += `<details class="apply-details">
+                        <summary><span class="chevron" aria-hidden="true">▶</span> How to apply</summary>
+                        <ol class="apply-steps">
+                            ${steps.map(s => `<li>${esc(s)}</li>`).join('')}
+                        </ol>
+                    </details>`;
+                }
+                html += `</div>`;
             });
         }
     }
-    
-    // "Want more?" card - only show after basic mode
+
+    // "Find more" card — only offered once, after the quick scan
     if (!isDetailed && !basicResultsShown) {
         basicResultsShown = true;
-        html += `
-            <div class="unlock-more-card">
-                <div class="unlock-icon">🔍</div>
-                <h3>Want to find more benefits?</h3>
-                <p>Answer a few more detailed questions to unlock additional programs you might qualify for - including veteran benefits, specialized housing, education grants, and more.</p>
-                <button id="unlock-btn" class="btn-unlock">Find More Benefits</button>
-            </div>
-        `;
+        html += `<div class="unlock-more-card">
+            <div class="unlock-icon" aria-hidden="true">🔍</div>
+            <h3>Find even more benefits</h3>
+            <p>A few more optional questions can uncover additional programs — like veteran benefits, specialized housing, and education grants.</p>
+            <button id="unlock-btn" class="btn-unlock">Answer a few more questions</button>
+        </div>`;
     }
-    
-    html += '<button id="restart-btn" class="btn-secondary" style="margin-top: 1.5rem;">Start Over</button>';
+
+    html += '<button id="restart-btn" class="btn-secondary restart-btn">Start Over</button>';
     screens.results.innerHTML = html;
     
     // Restart button
@@ -863,9 +913,11 @@ nextBtn.addEventListener('click', () => {
     if (q.type === 'multiselect') {
         // Multiselect can be empty
     } else if (!answers[q.id]) {
-        alert('Please select an answer');
+        fieldError.classList.add('show');
+        fieldError.focus?.();
         return;
     }
+    fieldError.classList.remove('show');
     
     if (currentQuestion < visibleQuestions.length - 1) {
         currentQuestion++;

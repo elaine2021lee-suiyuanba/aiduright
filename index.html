@@ -3,46 +3,65 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AiduRight - Find Benefits You Qualify For</title>
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="AiduRight helps you find government benefits and assistance programs you may qualify for. Free, private, no account needed.">
+    <title>AiduRight — Find Benefits You Qualify For</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
     <header>
-        <h1>AiduRight</h1>
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">🧭</span>
+            <span>AiduRight</span>
+        </div>
         <p class="tagline">Find government benefits you qualify for</p>
     </header>
 
-    <main>
-        <section id="intro" class="screen active">
-            <h2>Get matched to benefits in minutes</h2>
-            <p>Answer a few simple questions. We'll show you all the programs you may qualify for.</p>
+    <main id="main">
+        <section id="intro" class="screen active" aria-labelledby="intro-heading">
+            <span class="intro-badge">Free &amp; private · No account needed</span>
+            <h2 id="intro-heading">Get matched to benefits in minutes</h2>
+            <p>Answer a few simple questions and we'll show you the programs you may qualify for.</p>
+            <ul class="trust-list">
+                <li>Takes about 3 minutes</li>
+                <li>Your answers stay on your device</li>
+                <li>Covers food, health, housing, cash &amp; more</li>
+            </ul>
             <button id="start-btn" class="btn-primary">Get Started</button>
         </section>
 
-        <section id="questionnaire" class="screen">
-            <div class="progress-bar">
+        <section id="questionnaire" class="screen" aria-labelledby="q-heading">
+            <div class="progress-header">
+                <span id="progress-label">Question 1</span>
+                <span class="progress-count" id="progress-count"></span>
+            </div>
+            <div class="progress-bar" role="progressbar" aria-labelledby="progress-label" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                 <div class="progress" id="progress"></div>
             </div>
             <div id="question-container">
-                <!-- Questions will be loaded here by JS -->
+                <!-- Questions rendered here by JS -->
             </div>
+            <p class="field-error" id="field-error" role="alert">Please select an answer to continue.</p>
             <div class="nav-buttons">
                 <button id="back-btn" class="btn-secondary">Back</button>
                 <button id="next-btn" class="btn-primary">Next</button>
             </div>
         </section>
 
-        <section id="loading" class="screen">
-            <p>Finding your benefits...</p>
+        <section id="loading" class="screen" aria-live="polite">
+            <div class="spinner" aria-hidden="true"></div>
+            <p>Finding programs for you…</p>
         </section>
 
-        <section id="results" class="screen">
-            <!-- Results will be loaded here by JS -->
+        <section id="results" class="screen" aria-labelledby="results-heading" aria-live="polite">
+            <!-- Results rendered here by JS -->
         </section>
     </main>
 
     <footer>
-        <p>AiduRight is for informational purposes only. Not official eligibility determination.</p>
+        <p>AiduRight is for informational purposes only and is not an official eligibility determination. Always verify with the official program. Need help now? Call <strong>211</strong>.</p>
     </footer>
 
     <script src="benefits.js"></script>

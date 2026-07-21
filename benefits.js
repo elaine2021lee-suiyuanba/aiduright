@@ -631,6 +631,7 @@ const benefits = [
     // ========== VETERANS ==========
     {
         id: 'va-healthcare',
+        detailedOnly: false,
         name: 'VA Healthcare',
         category: 'veterans',
         description: 'Free or low-cost healthcare for veterans. Covers medical, mental health, prescriptions, and more.',

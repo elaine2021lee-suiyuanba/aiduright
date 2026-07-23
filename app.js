@@ -911,7 +911,10 @@ function renderResults(matchedBenefits, isDetailed = false) {
                 const steps = Array.isArray(b.howToApply) ? b.howToApply : [];
                 const delay = (cardIndex++ * 0.06).toFixed(2);
                 html += `<div class="result-card" style="animation-delay:${delay}s">
-                    <h4>${esc(b.name)}</h4>
+                    <div class="card-head">
+                        <span class="card-icon" aria-hidden="true">${cat.icon}</span>
+                        <h4>${esc(b.name)}</h4>
+                    </div>
                     <p class="card-desc">${esc(b.description)}</p>
                     <a href="${esc(b.url)}" target="_blank" rel="noopener noreferrer" class="card-link">Visit official site <span aria-hidden="true">→</span></a>`;
                 if (steps.length) {

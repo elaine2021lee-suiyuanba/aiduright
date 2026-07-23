@@ -1183,7 +1183,7 @@ const categories = {
     food: { name: 'Food Assistance', icon: '🍎' },
     cash: { name: 'Cash Assistance', icon: '💵' },
     housing: { name: 'Housing', icon: '🏠' },
-    utilities: { name: 'Utilities & Internet', icon: '💡' },
+    utilities: { name: 'Utilities & Internet', icon: '⚡' },
     seniors: { name: 'Seniors & Disability', icon: '👴' },
     childcare: { name: 'Childcare', icon: '👶' },
     education: { name: 'Education', icon: '🎓' },

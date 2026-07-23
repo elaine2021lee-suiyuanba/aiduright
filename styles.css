@@ -184,6 +184,12 @@ body::before {
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
     }
+    /* Never let an AOS element stay hidden when animations are off,
+       including cards injected after AOS init. */
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
 }
 
 /* ---------- Skip link ---------- */
@@ -612,7 +618,7 @@ main {
     box-shadow: var(--shadow-sm);
 }
 
-/* Cards — stagger fade-in from bottom (delay set inline by JS) */
+/* Cards — fade-up on scroll via AOS (data-aos), hover-lift via transition */
 .result-card {
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -621,7 +627,6 @@ main {
     background: var(--surface);
     box-shadow: var(--shadow-sm);
     transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
-    animation: fade-in-up 0.5s var(--ease) both;
 }
 .result-card:hover {
     box-shadow: var(--shadow-md);

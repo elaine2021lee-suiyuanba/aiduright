@@ -25,6 +25,33 @@ const progressLabel = document.getElementById('progress-label');
 const progressCount = document.getElementById('progress-count');
 const fieldError = document.getElementById('field-error');
 
+const prefersReducedMotion = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Scroll-in animations (AOS). Disabled entirely for reduced-motion users.
+if (window.AOS) {
+    AOS.init({
+        duration: 700,
+        easing: 'ease-out',
+        once: true,
+        offset: 40,
+        disable: prefersReducedMotion
+    });
+}
+
+// Short, on-theme confetti burst for a successful match
+function celebrate() {
+    if (typeof confetti !== 'function') return;
+    confetti({
+        particleCount: 90,
+        spread: 72,
+        startVelocity: 42,
+        origin: { y: 0.35 },
+        colors: ['#0D9488', '#14B8A6', '#F97316'],
+        disableForReducedMotion: true
+    });
+}
+
 // Escape user-facing strings before injecting as HTML
 function esc(str) {
     return String(str).replace(/[&<>"']/g, c => ({
@@ -450,6 +477,8 @@ function getCurrentQuestions() {
 function showScreen(screenName) {
     Object.values(screens).forEach(s => s.classList.remove('active'));
     screens[screenName].classList.add('active');
+    // Recalculate AOS positions now that a new screen is visible
+    if (window.AOS) AOS.refresh();
 }
 
 // Check if question should be shown
@@ -909,8 +938,8 @@ function renderResults(matchedBenefits, isDetailed = false) {
 
             catBenefits.forEach(b => {
                 const steps = Array.isArray(b.howToApply) ? b.howToApply : [];
-                const delay = (cardIndex++ * 0.06).toFixed(2);
-                html += `<div class="result-card" style="animation-delay:${delay}s">
+                const delay = Math.min(cardIndex++ * 60, 300);
+                html += `<div class="result-card" data-aos="fade-up" data-aos-delay="${delay}">
                     <div class="card-head">
                         <span class="card-icon" aria-hidden="true">${cat.icon}</span>
                         <h4>${esc(b.name)}</h4>
@@ -964,6 +993,12 @@ function renderResults(matchedBenefits, isDetailed = false) {
             renderQuestion();
         });
     }
+
+    // Re-scan the freshly-injected cards so AOS observes them
+    if (window.AOS) AOS.refreshHard();
+
+    // Celebrate a successful match (once per results view)
+    if (matchedBenefits.length > 0) celebrate();
 }
 
 // Event Listeners

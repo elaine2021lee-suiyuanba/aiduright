@@ -5,6 +5,7 @@ let currentQuestion = 0;
 let answers = {};
 let questionMode = 'basic'; // 'basic' or 'detailed'
 let basicResultsShown = false;
+let slideDir = 'right'; // direction of the question-transition animation
 
 // DOM Elements
 const screens = {
@@ -501,6 +502,11 @@ function renderQuestion() {
     html += '</div>';
     questionContainer.innerHTML = html;
 
+    // Re-trigger the slide/fade transition in the current direction
+    questionContainer.classList.remove('slide-in-right', 'slide-in-left');
+    void questionContainer.offsetWidth; // force reflow so the animation restarts
+    questionContainer.classList.add(slideDir === 'left' ? 'slide-in-left' : 'slide-in-right');
+
     // Wire up option clicks
     document.querySelectorAll('.option').forEach(opt => {
         opt.addEventListener('click', () => selectOption(q, opt.dataset.value));
@@ -895,6 +901,7 @@ function renderResults(matchedBenefits, isDetailed = false) {
             <span>These are preliminary matches. Actual eligibility depends on additional factors — always verify with the official program.</span>
         </div>`;
 
+        let cardIndex = 0;
         for (const [catId, catBenefits] of Object.entries(grouped)) {
             const cat = categories[catId];
             if (!cat) continue;
@@ -902,7 +909,8 @@ function renderResults(matchedBenefits, isDetailed = false) {
 
             catBenefits.forEach(b => {
                 const steps = Array.isArray(b.howToApply) ? b.howToApply : [];
-                html += `<div class="result-card">
+                const delay = (cardIndex++ * 0.06).toFixed(2);
+                html += `<div class="result-card" style="animation-delay:${delay}s">
                     <h4>${esc(b.name)}</h4>
                     <p class="card-desc">${esc(b.description)}</p>
                     <a href="${esc(b.url)}" target="_blank" rel="noopener noreferrer" class="card-link">Visit official site <span aria-hidden="true">→</span></a>`;
@@ -948,6 +956,7 @@ function renderResults(matchedBenefits, isDetailed = false) {
         unlockBtn.addEventListener('click', () => {
             questionMode = 'detailed';
             currentQuestion = 0;
+            slideDir = 'right';
             showScreen('questionnaire');
             renderQuestion();
         });
@@ -960,12 +969,14 @@ startBtn.addEventListener('click', () => {
     currentQuestion = 0;
     answers = {};
     basicResultsShown = false;
+    slideDir = 'right';
     showScreen('questionnaire');
     renderQuestion();
 });
 
 backBtn.addEventListener('click', () => {
     if (currentQuestion > 0) {
+        slideDir = 'left';
         currentQuestion--;
         renderQuestion();
     }
@@ -986,6 +997,7 @@ nextBtn.addEventListener('click', () => {
     fieldError.classList.remove('show');
     
     if (currentQuestion < visibleQuestions.length - 1) {
+        slideDir = 'right';
         currentQuestion++;
         renderQuestion();
     } else {

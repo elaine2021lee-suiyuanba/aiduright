@@ -3,13 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#1d4ed8">
+    <meta name="theme-color" content="#0D9488">
     <meta name="description" content="AiduRight helps you find government benefits and assistance programs you may qualify for. Free, private, no account needed.">
     <title>AiduRight — Find Benefits You Qualify For</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Decorative soft blobs behind the content -->
+    <div class="bg-blobs" aria-hidden="true">
+        <span class="blob blob-1"></span>
+        <span class="blob blob-2"></span>
+        <span class="blob blob-3"></span>
+    </div>
 
     <header>
         <div class="brand">
@@ -21,7 +33,10 @@
 
     <main id="main">
         <section id="intro" class="screen active" aria-labelledby="intro-heading">
-            <span class="intro-badge">Free &amp; private · No account needed</span>
+            <span class="intro-badge">
+                <span class="lock" aria-hidden="true">🔒</span>
+                Free &amp; private · No account needed
+            </span>
             <h2 id="intro-heading">Get matched to benefits in minutes</h2>
             <p>Answer a few simple questions and we'll show you the programs you may qualify for.</p>
             <ul class="trust-list">
@@ -30,6 +45,9 @@
                 <li>Covers food, health, housing, cash &amp; more</li>
             </ul>
             <button id="start-btn" class="btn-primary">Get Started</button>
+            <p class="privacy-note">
+                <span aria-hidden="true">🔒</span> No data stored · Nothing leaves your browser
+            </p>
         </section>
 
         <section id="questionnaire" class="screen" aria-labelledby="q-heading">
@@ -61,6 +79,9 @@
     </main>
 
     <footer>
+        <p class="privacy-note footer-privacy">
+            <span aria-hidden="true">🔒</span> Private by design — no accounts, no tracking, no data stored.
+        </p>
         <p>AiduRight is for informational purposes only and is not an official eligibility determination. Always verify with the official program. Need help now? Call <strong>211</strong>.</p>
     </footer>
 

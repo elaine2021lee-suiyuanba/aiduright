@@ -331,22 +331,6 @@ const benefits = [
             'Auto-qualify if on Medi-Cal, CalFresh, SSI, etc.'
         ]
     },
-    {
-        id: 'acp',
-        name: 'Affordable Connectivity Program',
-        category: 'utilities',
-        description: '$30/month off internet bill. Can combine with Lifeline for nearly free internet.',
-        requirements: {
-            income_fpl: 200
-        },
-        url: 'https://www.fcc.gov/acp',
-        howToApply: [
-            'Apply at GetInternet.gov',
-            'Choose a participating internet provider',
-            'Discount applies automatically each month'
-        ]
-    },
-
     // ========== SENIORS & DISABILITY ==========
     {
         id: 'ihss',
@@ -906,8 +890,7 @@ const benefits = [
         description: 'Free reproductive healthcare regardless of income for those without insurance. Birth control, STI testing, exams.',
         requirements: {
             state: ['CA'],
-            no_insurance: true,
-            age: ['reproductive']
+            no_insurance: true
         },
         url: 'https://www.familypact.org/',
         howToApply: [
@@ -1174,21 +1157,23 @@ const benefits = [
 
 ];
 
-// Federal Poverty Level 2024 (monthly)
-const fpl2024Monthly = {
-    1: 1255,
-    2: 1703,
-    3: 2150,
-    4: 2598,
-    5: 3045,
-    6: 3493,
-    7: 3940,
-    8: 4388
+// Federal Poverty Level — monthly, contiguous US.
+// Source: 2026 HHS Poverty Guidelines (effective Jan 13, 2026), annual ÷ 12.
+// UPDATE ANNUALLY: new guidelines publish each January.
+const fplMonthly = {
+    1: 1330,  // $15,960/yr
+    2: 1803,  // $21,640/yr
+    3: 2277,  // $27,320/yr
+    4: 2750,  // $33,000/yr
+    5: 3223,  // $38,680/yr
+    6: 3697,  // $44,360/yr
+    7: 4170,  // $50,040/yr
+    8: 4643   // $55,720/yr
 };
 
 // Calculate FPL percentage
 function calculateFPLPercent(monthlyIncome, householdSize) {
-    const baseFPL = fpl2024Monthly[Math.min(householdSize, 8)];
+    const baseFPL = fplMonthly[Math.min(householdSize, 8)];
     return Math.round((monthlyIncome / baseFPL) * 100);
 }
 

@@ -72,18 +72,20 @@ const basicQuestions = [
         id: 'monthly_income',
         text: 'What is your household\'s total monthly income (before taxes)?',
         type: 'select',
+        // value = midpoint of each bracket (a representative income), so FPL
+        // math isn't biased by using the top of the range.
         options: [
             { value: '0', label: '$0 (no income)' },
-            { value: '500', label: 'Under $500' },
-            { value: '1000', label: '$500 - $1,000' },
-            { value: '1500', label: '$1,000 - $1,500' },
-            { value: '2000', label: '$1,500 - $2,000' },
-            { value: '2500', label: '$2,000 - $2,500' },
-            { value: '3000', label: '$2,500 - $3,000' },
-            { value: '4000', label: '$3,000 - $4,000' },
-            { value: '5000', label: '$4,000 - $5,000' },
-            { value: '6000', label: '$5,000 - $6,000' },
-            { value: '8000', label: '$6,000 - $8,000' },
+            { value: '250', label: 'Under $500' },
+            { value: '750', label: '$500 - $1,000' },
+            { value: '1250', label: '$1,000 - $1,500' },
+            { value: '1750', label: '$1,500 - $2,000' },
+            { value: '2250', label: '$2,000 - $2,500' },
+            { value: '2750', label: '$2,500 - $3,000' },
+            { value: '3500', label: '$3,000 - $4,000' },
+            { value: '4500', label: '$4,000 - $5,000' },
+            { value: '5500', label: '$5,000 - $6,000' },
+            { value: '7000', label: '$6,000 - $8,000' },
             { value: '10000', label: 'Over $8,000' }
         ]
     },
@@ -234,21 +236,22 @@ const detailedQuestions = [
         id: 'exact_annual_income',
         text: 'What is your household\'s exact annual income? (Check your tax return or pay stubs)',
         type: 'select',
+        // value = midpoint of each bracket (a representative income).
         options: [
             { value: '0', label: '$0' },
-            { value: '10000', label: 'Under $10,000' },
-            { value: '15000', label: '$10,000 - $15,000' },
-            { value: '20000', label: '$15,000 - $20,000' },
-            { value: '25000', label: '$20,000 - $25,000' },
-            { value: '30000', label: '$25,000 - $30,000' },
-            { value: '40000', label: '$30,000 - $40,000' },
-            { value: '50000', label: '$40,000 - $50,000' },
-            { value: '60000', label: '$50,000 - $60,000' },
-            { value: '75000', label: '$60,000 - $75,000' },
-            { value: '100000', label: '$75,000 - $100,000' },
-            { value: '150000', label: '$100,000 - $150,000' },
-            { value: '200000', label: '$150,000 - $200,000' },
-            { value: '250000', label: 'Over $200,000' }
+            { value: '5000', label: 'Under $10,000' },
+            { value: '12500', label: '$10,000 - $15,000' },
+            { value: '17500', label: '$15,000 - $20,000' },
+            { value: '22500', label: '$20,000 - $25,000' },
+            { value: '27500', label: '$25,000 - $30,000' },
+            { value: '35000', label: '$30,000 - $40,000' },
+            { value: '45000', label: '$40,000 - $50,000' },
+            { value: '55000', label: '$50,000 - $60,000' },
+            { value: '67500', label: '$60,000 - $75,000' },
+            { value: '87500', label: '$75,000 - $100,000' },
+            { value: '125000', label: '$100,000 - $150,000' },
+            { value: '175000', label: '$150,000 - $200,000' },
+            { value: '225000', label: 'Over $200,000' }
         ]
     },
     {
@@ -540,9 +543,18 @@ function calculateFPLPercent() {
     const income = parseInt(answers.monthly_income) || 0;
     let householdSize = parseInt(answers.household_size) || 1;
     if (answers.household_size === '8plus') householdSize = 8;
-    
-    const fpl = fpl2024Monthly[householdSize];
+
+    const fpl = fplMonthly[householdSize];
     return Math.round((income / fpl) * 100);
+}
+
+// Best estimate of annual household income: use the exact figure from Deep Scan
+// if we have it, otherwise annualize the monthly bracket from Quick Scan.
+function getAnnualIncome() {
+    if (answers.exact_annual_income != null && answers.exact_annual_income !== '') {
+        return parseInt(answers.exact_annual_income) || 0;
+    }
+    return (parseInt(answers.monthly_income) || 0) * 12;
 }
 
 // Match benefits based on answers
@@ -792,7 +804,61 @@ function checkEligibility(benefit, fplPercent) {
             return false;
         }
     }
-    
+
+    // Annual income maximum (for VITA, Middle Class Scholarship, etc.)
+    if (req.income_max && getAnnualIncome() > req.income_max) {
+        return false;
+    }
+
+    // Low assets / resource limit (for SSI). Only enforced if Deep Scan asked;
+    // the '0' bucket is "under $2,000".
+    if (req.assets_low && answers.total_assets && answers.total_assets !== '0') {
+        return false;
+    }
+
+    // Not currently receiving SSI (for General Assistance)
+    if (req.not_receiving_ssi && ['ssi', 'both'].includes(answers.receives_ssi_ssdi)) {
+        return false;
+    }
+
+    // Likely eligible for disability (for HDAP)
+    if (req.likely_disabled && answers.has_disability !== 'yes') {
+        return false;
+    }
+
+    // Nursing-home level of care needed (for MSSP)
+    if (req.nursing_home_eligible &&
+        !(answers.needs_daily_help === 'yes' || answers.care_facility === 'considering')) {
+        return false;
+    }
+
+    // Behind on rent or facing eviction (for Emergency Rental Assistance)
+    if (req.rental_hardship) {
+        const crisis = answers.housing_crisis || [];
+        if (!crisis.includes('behind_rent') && !crisis.includes('eviction')) {
+            return false;
+        }
+    }
+
+    // Utility shutoff / energy crisis (for REACH)
+    if (req.utility_crisis && !(answers.housing_crisis || []).includes('utility_shutoff')) {
+        return false;
+    }
+
+    // WIC special categories: pregnant person, or infant/young child in the home
+    if (req.special === 'pregnant_or_infant') {
+        const childAges = answers.children_ages || [];
+        const hasYoungChild = childAges.includes('under1') || childAges.includes('1-4');
+        if (answers.pregnant !== 'yes' && !hasYoungChild) {
+            return false;
+        }
+    }
+
+    // Keys we can't verify from the questionnaire — surfaced as preliminary matches
+    // rather than filtered out:
+    //   req.cmsp_county   — depends on the user's specific CA county
+    //   req.receives_pell — Pell receipt tracks income, already gated by income_fpl
+
     return true;
 }
 

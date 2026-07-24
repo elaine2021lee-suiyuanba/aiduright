@@ -1,0 +1,49 @@
+name: Monthly data check
+
+# Verifies benefit URLs and data freshness once a month. If it finds broken
+# links or stale entries, it opens a GitHub Issue so the problem is noticed.
+on:
+  schedule:
+    - cron: '0 9 1 * *'   # 09:00 UTC on the 1st of every month
+  workflow_dispatch:        # also runnable on demand from the Actions tab
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run data verification
+        id: check
+        run: node verify-data.mjs
+        continue-on-error: true   # don't fail the job; we branch on the outcome below
+
+      - name: Open an issue if problems were found
+        if: steps.check.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('data-report.md', 'utf8');
+            const today = new Date().toISOString().slice(0, 10);
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Benefit data check found issues (${today})`,
+              body,
+            });
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-report
+          path: data-report.md

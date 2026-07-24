@@ -5,6 +5,7 @@ const benefits = [
     // ========== HEALTHCARE ==========
     {
         id: 'medi-cal',
+        verified: '2026-07-23',
         name: 'Medi-Cal',
         category: 'healthcare',
         description: 'Free or low-cost health coverage for Californians with limited income. Covers doctor visits, hospital, prescriptions, dental, vision, and mental health.',
@@ -23,6 +24,7 @@ const benefits = [
     },
     {
         id: 'medicare',
+        verified: '2026-07-23',
         name: 'Medicare',
         category: 'healthcare',
         description: 'Federal health insurance for people 65+ or with certain disabilities. Part A (hospital), Part B (medical), Part D (prescriptions).',
@@ -40,6 +42,7 @@ const benefits = [
     },
     {
         id: 'covered-ca',
+        verified: '2026-07-23',
         name: 'Covered California',
         category: 'healthcare',
         description: 'Health insurance marketplace with subsidies for middle-income families. If you earn too much for Medi-Cal but need help affording insurance.',
@@ -60,6 +63,7 @@ const benefits = [
     // ========== FOOD ASSISTANCE ==========
     {
         id: 'calfresh',
+        verified: null,
         name: 'CalFresh (SNAP/Food Stamps)',
         category: 'food',
         description: 'Monthly EBT card to buy groceries. About $234/month for individuals, more for families.',
@@ -78,6 +82,7 @@ const benefits = [
     },
     {
         id: 'wic',
+        verified: null,
         name: 'WIC (Women, Infants, Children)',
         category: 'food',
         description: 'Nutrition program for pregnant women, new moms, and children under 5. Free healthy food, nutrition education, breastfeeding support.',
@@ -96,6 +101,7 @@ const benefits = [
     },
     {
         id: 'school-meals',
+        verified: null,
         name: 'Free School Meals',
         category: 'food',
         description: 'Free breakfast and lunch for K-12 students. California now offers free meals to ALL students regardless of income.',
@@ -112,14 +118,15 @@ const benefits = [
     },
     {
         id: 'summer-ebt',
-        name: 'Summer EBT',
+        verified: null,
+        name: 'Summer EBT (SUN Bucks)',
         category: 'food',
-        description: 'Summer grocery money for kids who get free school meals. About $120 per child loaded onto EBT card.',
+        description: 'Summer grocery money for kids who get free school meals. $120 per eligible child ($40/month June-August) loaded onto an EBT card.',
         requirements: {
             state: ['CA'],
             has_school_age_children: true
         },
-        url: 'https://www.cdss.ca.gov/inforesources/summer-ebt',
+        url: 'https://www.cdss.ca.gov/sunbucks',
         howToApply: [
             'If your child gets free school meals, you may be auto-enrolled',
             'Check with your school district',
@@ -128,6 +135,7 @@ const benefits = [
     },
     {
         id: 'sfsp',
+        verified: null,
         name: 'Summer Meals Program',
         category: 'food',
         description: 'Free breakfast and lunch for kids during summer at schools, parks, and community centers. No signup needed.',
@@ -143,6 +151,7 @@ const benefits = [
     },
     {
         id: 'csfp',
+        verified: null,
         name: 'CSFP (Senior Food Box)',
         category: 'food',
         description: 'Monthly box of nutritious food for seniors 60+. Includes cheese, milk, cereal, canned goods, and more.',
@@ -162,6 +171,7 @@ const benefits = [
     // ========== CASH ASSISTANCE ==========
     {
         id: 'ssi',
+        verified: null,
         name: 'SSI (Supplemental Security Income)',
         category: 'cash',
         description: 'Monthly cash for seniors 65+, blind, or disabled with little income. California adds SSP on top - up to $1,182/month total for individuals.',
@@ -181,6 +191,7 @@ const benefits = [
     },
     {
         id: 'calworks',
+        verified: null,
         name: 'CalWORKs (TANF)',
         category: 'cash',
         description: 'Temporary cash assistance for families with children. Also provides job training and childcare support.',
@@ -199,6 +210,7 @@ const benefits = [
     },
     {
         id: 'ga',
+        verified: null,
         name: 'General Assistance',
         category: 'cash',
         description: 'Cash aid for adults without children who do not qualify for other programs. Amount varies by county.',
@@ -219,6 +231,7 @@ const benefits = [
     // ========== HOUSING ==========
     {
         id: 'section8',
+        verified: null,
         name: 'Section 8 (Housing Choice Voucher)',
         category: 'housing',
         description: 'Voucher to help pay rent for private housing. You pay 30% of income, voucher covers the rest.',
@@ -235,6 +248,7 @@ const benefits = [
     },
     {
         id: 'lihtc',
+        verified: null,
         name: 'Affordable Housing (LIHTC)',
         category: 'housing',
         description: 'Below-market rent apartments. Income-restricted housing developments throughout California.',
@@ -250,6 +264,7 @@ const benefits = [
     },
     {
         id: 'erap',
+        verified: null,
         name: 'Emergency Rental Assistance',
         category: 'housing',
         description: 'Help paying back rent or preventing eviction. Availability varies - check your county.',
@@ -269,6 +284,7 @@ const benefits = [
     // ========== UTILITIES ==========
     {
         id: 'liheap',
+        verified: null,
         name: 'LIHEAP (Utility Bill Help)',
         category: 'utilities',
         description: 'One-time payment to help with heating/cooling bills. Up to several hundred dollars.',
@@ -284,6 +300,7 @@ const benefits = [
     },
     {
         id: 'care',
+        verified: null,
         name: 'CARE (California Alternate Rates for Energy)',
         category: 'utilities',
         description: '30-35% discount on gas and electric bills for low-income households. Ongoing monthly savings.',
@@ -300,6 +317,7 @@ const benefits = [
     },
     {
         id: 'fera',
+        verified: null,
         name: 'FERA (Family Electric Rate Assistance)',
         category: 'utilities',
         description: '18% discount on electric bills for households of 3+ people with slightly higher income than CARE.',
@@ -309,7 +327,7 @@ const benefits = [
             income_fpl_max: 250,
             household_size_min: 3
         },
-        url: 'https://www.cpuc.ca.gov/fera/',
+        url: 'https://www.cpuc.ca.gov/industries-and-topics/electrical-energy/electric-costs/care-fera-program',
         howToApply: [
             'Apply through your electric company',
             'For families who earn too much for CARE',
@@ -318,6 +336,7 @@ const benefits = [
     },
     {
         id: 'lifeline',
+        verified: null,
         name: 'Lifeline (Phone/Internet Discount)',
         category: 'utilities',
         description: 'Discount on phone or internet service. $9.25/month federal + California additions.',
@@ -334,6 +353,7 @@ const benefits = [
     // ========== SENIORS & DISABILITY ==========
     {
         id: 'ihss',
+        verified: null,
         name: 'IHSS (In-Home Supportive Services)',
         category: 'seniors',
         description: 'Pays for a caregiver to help you live at home. Can pay family members to be your caregiver. For seniors 65+ OR people with disabilities.',
@@ -352,6 +372,7 @@ const benefits = [
     },
     {
         id: 'mssp',
+        verified: null,
         name: 'MSSP (Multipurpose Senior Services)',
         category: 'seniors',
         description: 'Care management to help seniors stay at home instead of nursing homes. Coordinates all your services.',
@@ -370,13 +391,14 @@ const benefits = [
     },
     {
         id: 'senior-nutrition',
+        verified: null,
         name: 'Senior Nutrition Program',
         category: 'seniors',
         description: 'Free meals at senior centers or delivered to your home (Meals on Wheels). For adults 60+.',
         requirements: {
             age: ['60plus', '65plus']
         },
-        url: 'https://aging.ca.gov/Programs_and_Services/Nutrition/',
+        url: 'https://www.aging.ca.gov/programs/nutrition/',
         howToApply: [
             'Contact your local Area Agency on Aging',
             'Or call your senior center directly',
@@ -387,6 +409,7 @@ const benefits = [
     // ========== CHILDCARE & EDUCATION ==========
     {
         id: 'head-start',
+        verified: null,
         name: 'Head Start / Early Head Start',
         category: 'childcare',
         description: 'Free preschool and child development for children 0-5 from low-income families. Includes meals, health screenings, and parent support.',
@@ -403,6 +426,7 @@ const benefits = [
     },
     {
         id: 'ccap',
+        verified: null,
         name: 'Childcare Assistance (CalWORKs)',
         category: 'childcare',
         description: 'Help paying for childcare while you work or go to school. Part of CalWORKs program.',
@@ -421,6 +445,7 @@ const benefits = [
     },
     {
         id: 'pell-grant',
+        verified: null,
         name: 'Pell Grant',
         category: 'education',
         description: 'Free money for college - up to $7,395/year. Does not need to be repaid.',
@@ -437,6 +462,7 @@ const benefits = [
     },
     {
         id: 'cal-grant',
+        verified: null,
         name: 'Cal Grant',
         category: 'education',
         description: 'California state grant for college students. Up to $14,000+ per year at UC/private schools.',
@@ -456,6 +482,7 @@ const benefits = [
     // ========== DISABILITY ==========
     {
         id: 'ssdi',
+        verified: null,
         name: 'SSDI (Social Security Disability)',
         category: 'disability',
         description: 'Monthly income for workers who become disabled. Based on your work history. Average payment ~$1,500/month.',
@@ -472,6 +499,7 @@ const benefits = [
     },
     {
         id: 'sdi',
+        verified: null,
         name: 'State Disability Insurance (SDI)',
         category: 'disability',
         description: 'Short-term disability payments when you cannot work due to illness, injury, or pregnancy. ~60-70% of wages.',
@@ -488,6 +516,7 @@ const benefits = [
     },
     {
         id: 'pfl',
+        verified: null,
         name: 'Paid Family Leave (PFL)',
         category: 'disability',
         description: 'Up to 8 weeks paid leave to care for seriously ill family member or bond with new child. ~60-70% of wages.',
@@ -506,6 +535,7 @@ const benefits = [
     // ========== TRANSPORTATION ==========
     {
         id: 'transit-discount',
+        verified: null,
         name: 'Reduced Fare Transit',
         category: 'transportation',
         description: 'Half-price or discounted bus and train fares for seniors, disabled, and low-income riders.',
@@ -521,6 +551,7 @@ const benefits = [
     },
     {
         id: 'paratransit',
+        verified: null,
         name: 'Paratransit Services',
         category: 'transportation',
         description: 'Door-to-door transportation for people who cannot use regular buses/trains due to disability.',
@@ -538,6 +569,7 @@ const benefits = [
     // ========== LEGAL & OTHER ==========
     {
         id: 'legal-aid',
+        verified: null,
         name: 'Free Legal Aid',
         category: 'other',
         description: 'Free lawyers for low-income people. Help with housing, family law, immigration, benefits, and more.',
@@ -553,6 +585,7 @@ const benefits = [
     },
     {
         id: '211',
+        verified: null,
         name: '211 - Community Resource Helpline',
         category: 'other',
         description: 'Free helpline connecting you to local services - food, housing, utilities, healthcare, and more. Available 24/7.',
@@ -566,6 +599,7 @@ const benefits = [
     },
     {
         id: 'food-bank',
+        verified: null,
         name: 'Local Food Banks',
         category: 'food',
         description: 'Free groceries from community food banks and pantries. No income verification at most locations.',
@@ -581,6 +615,7 @@ const benefits = [
     // ========== OTHER ==========
     {
         id: 'eitc',
+        verified: null,
         name: 'EITC (Earned Income Tax Credit)',
         category: 'tax',
         description: 'Tax refund up to $7,430 for working families. California adds CalEITC for extra money.',
@@ -598,6 +633,7 @@ const benefits = [
     },
     {
         id: 'free-tax-prep',
+        verified: null,
         name: 'VITA Free Tax Preparation',
         category: 'tax',
         description: 'Free tax filing help for people earning under $64,000. IRS-certified volunteers.',
@@ -615,6 +651,7 @@ const benefits = [
     // ========== VETERANS ==========
     {
         id: 'va-healthcare',
+        verified: null,
         detailedOnly: false,
         name: 'VA Healthcare',
         category: 'veterans',
@@ -632,6 +669,7 @@ const benefits = [
     },
     {
         id: 'gi-bill',
+        verified: null,
         name: 'GI Bill (Education Benefits)',
         category: 'veterans',
         description: 'Pays for college, trade school, or training for veterans. Covers tuition, housing, and books.',
@@ -647,6 +685,7 @@ const benefits = [
     },
     {
         id: 'calvet-fee-waiver',
+        verified: null,
         name: 'CalVet College Fee Waiver',
         category: 'veterans',
         description: 'Free tuition at California public colleges for children and dependents of veterans who are disabled or deceased.',
@@ -663,6 +702,7 @@ const benefits = [
     },
     {
         id: 'vhhp',
+        verified: null,
         name: 'Veterans Housing Program (VHHP)',
         category: 'veterans',
         description: 'Housing assistance for homeless veterans or at risk of homelessness. Emergency housing, rental help, and permanent housing.',
@@ -680,6 +720,7 @@ const benefits = [
     },
     {
         id: 'va-disability',
+        verified: null,
         name: 'VA Disability Compensation',
         category: 'veterans',
         description: 'Monthly tax-free payment for injuries or illnesses caused or worsened by military service. Amount based on disability rating.',
@@ -696,6 +737,7 @@ const benefits = [
     },
     {
         id: 'va-pension',
+        verified: null,
         name: 'VA Pension',
         category: 'veterans',
         description: 'Monthly income for wartime veterans 65+ or disabled with limited income. Aid & Attendance adds extra for daily care needs.',
@@ -715,6 +757,7 @@ const benefits = [
     // ========== IMMIGRANTS ==========
     {
         id: 'capi',
+        verified: null,
         name: 'CAPI (Cash Assistance for Immigrants)',
         category: 'immigrants',
         description: 'Monthly cash for immigrants 65+, blind, or disabled who cannot get SSI due to immigration status. Same amount as SSI.',
@@ -733,6 +776,7 @@ const benefits = [
     },
     {
         id: 'rca',
+        verified: null,
         name: 'Refugee Cash Assistance (RCA)',
         category: 'immigrants',
         description: 'Up to 8 months of cash assistance for newly arrived refugees who do not qualify for other programs.',
@@ -749,6 +793,7 @@ const benefits = [
     },
     {
         id: 'rma',
+        verified: null,
         name: 'Refugee Medical Assistance (RMA)',
         category: 'immigrants',
         description: 'Up to 8 months of health coverage for newly arrived refugees not eligible for Medi-Cal.',
@@ -765,6 +810,7 @@ const benefits = [
     },
     {
         id: 'cfap',
+        verified: null,
         name: 'CFAP (CA Food Assistance Program)',
         category: 'immigrants',
         description: 'Food benefits like CalFresh for legal immigrants who do not qualify for federal SNAP due to immigration status.',
@@ -784,6 +830,7 @@ const benefits = [
     // ========== MORE HOUSING ==========
     {
         id: 'calworks-ha',
+        verified: null,
         name: 'CalWORKs Homeless Assistance',
         category: 'housing',
         description: 'Emergency shelter and move-in help for families with children who are homeless. Up to 16 days temporary shelter or security deposit.',
@@ -792,7 +839,7 @@ const benefits = [
             has_children: true,
             is_homeless: true
         },
-        url: 'https://www.cdss.ca.gov/homeless-assistance',
+        url: 'https://www.cdss.ca.gov/inforesources/cdss-programs/housing-programs/calworks-homeless-assistance',
         howToApply: [
             'Apply at county social services',
             'Must be eligible for CalWORKs',
@@ -801,6 +848,7 @@ const benefits = [
     },
     {
         id: 'hdap',
+        verified: null,
         name: 'HDAP (Housing & Disability Advocacy)',
         category: 'housing',
         description: 'Housing help plus benefits advocacy for homeless people likely eligible for disability. Helps get SSI while providing housing.',
@@ -818,6 +866,7 @@ const benefits = [
     },
     {
         id: 'public-housing',
+        verified: null,
         name: 'Public Housing',
         category: 'housing',
         description: 'Government-owned apartments with rent based on income (30% of income). Different from Section 8 vouchers.',
@@ -834,6 +883,7 @@ const benefits = [
     },
     {
         id: 'usda-rural',
+        verified: null,
         name: 'USDA Rural Housing Loans',
         category: 'housing',
         description: 'Low-interest home loans for rural areas. Zero down payment for eligible buyers. Also rental assistance.',
@@ -852,7 +902,8 @@ const benefits = [
     // ========== MORE HEALTHCARE ==========
     {
         id: 'denti-cal',
-        name: 'Denti-Cal (Medi-Cal Dental)',
+        verified: '2026-07-23',
+        name: 'Medi-Cal Dental Program (Denti-Cal)',
         category: 'healthcare',
         description: 'Free dental care for Medi-Cal members. Covers cleanings, fillings, extractions, dentures, and more.',
         requirements: {
@@ -868,6 +919,7 @@ const benefits = [
     },
     {
         id: 'chip',
+        verified: '2026-07-23',
         name: 'CHIP (Children\'s Health Insurance)',
         category: 'healthcare',
         description: 'Low-cost health coverage for children whose families earn too much for Medicaid but cannot afford private insurance.',
@@ -885,12 +937,14 @@ const benefits = [
     },
     {
         id: 'family-pact',
+        verified: '2026-07-23',
         name: 'Family PACT',
         category: 'healthcare',
-        description: 'Free reproductive healthcare regardless of income for those without insurance. Birth control, STI testing, exams.',
+        description: 'Free reproductive and sexual health care — birth control, STI testing, exams — for uninsured Californians with income up to 200% of the poverty level, regardless of immigration status.',
         requirements: {
             state: ['CA'],
-            no_insurance: true
+            no_insurance: true,
+            income_fpl: 200
         },
         url: 'https://www.familypact.org/',
         howToApply: [
@@ -901,6 +955,7 @@ const benefits = [
     },
     {
         id: 'cmsp',
+        verified: '2026-07-23',
         name: 'CMSP (County Medical Services)',
         category: 'healthcare',
         description: 'Health coverage for low-income adults in smaller California counties that do not expand Medi-Cal.',
@@ -920,6 +975,7 @@ const benefits = [
     // ========== MORE EDUCATION ==========
     {
         id: 'fseog',
+        verified: null,
         name: 'FSEOG (Supplemental Grant)',
         category: 'education',
         description: 'Extra grant money for students with exceptional financial need. Up to $4,000/year on top of Pell Grant.',
@@ -937,6 +993,7 @@ const benefits = [
     },
     {
         id: 'work-study',
+        verified: null,
         name: 'Federal Work-Study',
         category: 'education',
         description: 'Part-time jobs for students with financial need. Earn money while gaining work experience.',
@@ -953,6 +1010,7 @@ const benefits = [
     },
     {
         id: 'ca-dream-act',
+        verified: null,
         name: 'CA Dream Act',
         category: 'education',
         description: 'Financial aid for undocumented students in California. Access to Cal Grants, fee waivers, and scholarships.',
@@ -970,6 +1028,7 @@ const benefits = [
     },
     {
         id: 'middle-class-scholarship',
+        verified: null,
         name: 'Middle Class Scholarship',
         category: 'education',
         description: 'California scholarship for students from families earning up to $217,000. Covers up to 40% of tuition.',
@@ -987,6 +1046,7 @@ const benefits = [
     },
     {
         id: 'bog-fee-waiver',
+        verified: null,
         name: 'CA College Promise Grant',
         category: 'education',
         description: 'Free community college tuition for California residents. Covers enrollment fees at all 116 community colleges.',
@@ -1006,6 +1066,7 @@ const benefits = [
     // ========== EMPLOYMENT ==========
     {
         id: 'unemployment',
+        verified: null,
         name: 'Unemployment Insurance (UI)',
         category: 'employment',
         description: 'Weekly payments when you lose your job through no fault. Up to 26 weeks, about 60-70% of prior wages.',
@@ -1023,6 +1084,7 @@ const benefits = [
     },
     {
         id: 'calfresh-employment',
+        verified: null,
         name: 'CalFresh Employment & Training',
         category: 'employment',
         description: 'Free job training, education, and job search help for CalFresh recipients. Transportation and supplies provided.',
@@ -1030,7 +1092,7 @@ const benefits = [
             state: ['CA'],
             receives_calfresh: true
         },
-        url: 'https://www.cdss.ca.gov/inforesources/calfresh-employment-and-training',
+        url: 'https://www.cdss.ca.gov/inforesources/cdss-programs/calfresh/employment-and-training',
         howToApply: [
             'Ask your CalFresh worker about CFET',
             'Voluntary program with many benefits',
@@ -1041,13 +1103,14 @@ const benefits = [
     // ========== MORE UTILITIES ==========
     {
         id: 'wap',
+        verified: null,
         name: 'Weatherization Assistance Program',
         category: 'utilities',
         description: 'Free home improvements to reduce energy bills. Insulation, sealing, efficient appliances. Saves $200-400/year.',
         requirements: {
             income_fpl: 200
         },
-        url: 'https://www.csd.ca.gov/Pages/Weatherization.aspx',
+        url: 'https://www.csd.ca.gov/Pages/ProgramsList.aspx',
         howToApply: [
             'Contact your local Community Action Agency',
             'Free energy audit and improvements',
@@ -1056,6 +1119,7 @@ const benefits = [
     },
     {
         id: 'reach',
+        verified: null,
         name: 'REACH (PG&E Emergency Help)',
         category: 'utilities',
         description: 'One-time energy bill payment assistance for PG&E customers in crisis. Up to $300.',
@@ -1073,6 +1137,7 @@ const benefits = [
     },
     {
         id: 'medical-baseline',
+        verified: null,
         name: 'Medical Baseline Allowance',
         category: 'utilities',
         description: 'Extra energy at lowest rate for people who depend on medical equipment at home. For life support, dialysis, etc.',
@@ -1091,6 +1156,7 @@ const benefits = [
     // ========== MORE FOOD ==========
     {
         id: 'calfresh-restaurant',
+        verified: null,
         name: 'CalFresh Restaurant Meals',
         category: 'food',
         description: 'Use CalFresh at participating restaurants if you are elderly, disabled, or homeless. Hot meals available.',
@@ -1108,6 +1174,7 @@ const benefits = [
     },
     {
         id: 'produce-rx',
+        verified: null,
         name: 'Produce Rx Programs',
         category: 'food',
         description: 'Free fruits and vegetables prescribed by doctors. For patients with diet-related conditions like diabetes.',
@@ -1126,6 +1193,7 @@ const benefits = [
     // ========== SENIORS ==========
     {
         id: 'senior-legal',
+        verified: null,
         name: 'Senior Legal Services',
         category: 'seniors',
         description: 'Free legal help for adults 60+. Housing, benefits, elder abuse, consumer fraud, healthcare issues.',
@@ -1141,6 +1209,7 @@ const benefits = [
     },
     {
         id: 'ombudsman',
+        verified: null,
         name: 'Long-Term Care Ombudsman',
         category: 'seniors',
         description: 'Free advocates for people in nursing homes and assisted living. Help with complaints, abuse, rights violations.',
@@ -1158,6 +1227,7 @@ const benefits = [
     // ========== COUNTY & SPECIALIZED HEALTHCARE ==========
     {
         id: 'healthy-sf',
+        verified: '2026-07-23',
         name: 'Healthy San Francisco',
         category: 'healthcare',
         description: 'Program giving uninsured San Francisco residents access to primary and specialty care through a network of participating clinics and hospitals. Not insurance and only covers care within San Francisco; open regardless of immigration status.',
@@ -1175,6 +1245,7 @@ const benefits = [
     },
     {
         id: 'ccs',
+        verified: '2026-07-23',
         name: 'California Children\'s Services (CCS)',
         category: 'healthcare',
         description: 'State/county program providing diagnosis, treatment, case management, and therapy for children under 21 with eligible severe or chronic medical conditions like cystic fibrosis, cancer, heart disease, or cerebral palsy.',
@@ -1191,6 +1262,7 @@ const benefits = [
     },
     {
         id: 'ghpp',
+        verified: '2026-07-23',
         name: 'Genetically Handicapped Persons Program (GHPP)',
         category: 'healthcare',
         description: 'Statewide program providing comprehensive health coverage and case management to Californians (generally 21+) with specific eligible genetic conditions such as cystic fibrosis, hemophilia, sickle cell disease, and certain metabolic disorders.',
@@ -1207,6 +1279,7 @@ const benefits = [
     },
     {
         id: 'every-woman-counts',
+        verified: '2026-07-23',
         name: 'Every Woman Counts',
         category: 'healthcare',
         description: 'Free breast and cervical cancer screening and diagnostic services (mammograms, clinical breast exams, Pap and HPV tests) for underserved Californians. Available regardless of immigration status.',
@@ -1223,6 +1296,7 @@ const benefits = [
     },
     {
         id: 'mcap',
+        verified: '2026-07-23',
         name: 'Medi-Cal Access Program (MCAP)',
         category: 'healthcare',
         description: 'Low-cost or no-cost comprehensive coverage for uninsured pregnant people whose income is too high for free Medi-Cal. Covers pregnancy through 60 days postpartum and the infant up to age 2, regardless of immigration status.',
@@ -1241,6 +1315,7 @@ const benefits = [
     },
     {
         id: 'medi-cal-wdp',
+        verified: '2026-07-23',
         name: 'Medi-Cal 250% Working Disabled Program',
         category: 'healthcare',
         description: 'Lets working Californians with disabilities keep full-scope Medi-Cal (no premium as of 2022) while earning above standard Medi-Cal limits. Disability income is disregarded when counting income.',
@@ -1259,6 +1334,7 @@ const benefits = [
     },
     {
         id: 'medicare-savings',
+        verified: '2026-07-23',
         name: 'Medicare Savings Programs (QMB/SLMB/QI)',
         category: 'healthcare',
         description: 'Medi-Cal programs that pay Medicare costs. QMB pays Part A and B premiums, deductibles, and coinsurance; SLMB and QI pay the Part B premium. Can save over $2,000 a year.',
@@ -1275,6 +1351,7 @@ const benefits = [
     },
     {
         id: 'medicare-extra-help',
+        verified: '2026-07-23',
         name: 'Extra Help (Medicare Part D Low-Income Subsidy)',
         category: 'healthcare',
         description: 'Federal subsidy that lowers or eliminates Medicare Part D prescription drug premiums, deductibles, and copays. People with Medicaid, SSI, or a Medicare Savings Program qualify automatically.',
@@ -1291,6 +1368,7 @@ const benefits = [
     },
     {
         id: 'pace',
+        verified: '2026-07-23',
         name: 'PACE (Program of All-Inclusive Care for the Elderly)',
         category: 'seniors',
         description: 'Medicare/Medicaid program delivering fully integrated medical, adult day, and long-term care so frail adults 55+ can live in the community instead of a nursing home. For people age 55+ who need nursing-home level of care.',
@@ -1308,6 +1386,7 @@ const benefits = [
     },
     {
         id: 'cbas',
+        verified: '2026-07-23',
         name: 'Community-Based Adult Services (CBAS)',
         category: 'seniors',
         description: 'Medi-Cal benefit delivering nursing care, therapies, personal care, social services, and meals at licensed adult day health centers, helping older and disabled adults avoid institutionalization.',
@@ -1327,6 +1406,7 @@ const benefits = [
     // ========== TAX CREDITS ==========
     {
         id: 'caleitc',
+        verified: '2026-07-23',
         name: 'CalEITC (California Earned Income Tax Credit)',
         category: 'tax',
         description: 'Refundable state credit for low-income working Californians, worth up to $3,756 for 2025. Paid as cash back even if you owe no tax. A valid SSN or ITIN is accepted.',
@@ -1344,6 +1424,7 @@ const benefits = [
     },
     {
         id: 'yctc',
+        verified: '2026-07-23',
         name: 'Young Child Tax Credit (YCTC)',
         category: 'tax',
         description: 'Refundable California credit of up to $1,189 (2025) for CalEITC-eligible families with a child under age 6. Paid on top of CalEITC.',
@@ -1362,6 +1443,7 @@ const benefits = [
     },
     {
         id: 'fytc',
+        verified: '2026-07-23',
         name: 'Foster Youth Tax Credit (FYTC)',
         category: 'tax',
         description: 'Refundable California credit of up to $1,189 (up to $2,378 per couple) for current and former foster youth ages 18-25 who were in California foster care at age 13 or older.',
@@ -1379,6 +1461,7 @@ const benefits = [
     },
     {
         id: 'ctc',
+        verified: '2026-07-23',
         name: 'Child Tax Credit (CTC)',
         category: 'tax',
         description: 'Federal credit of up to $2,200 per qualifying child under 17 for 2025, with up to $1,700 per child refundable. Full credit for income up to $200,000 (single) or $400,000 (married filing jointly).',
@@ -1395,6 +1478,7 @@ const benefits = [
     },
     {
         id: 'renters-credit',
+        verified: '2026-07-23',
         name: 'California Nonrefundable Renter\'s Credit',
         category: 'tax',
         description: 'State tax credit of $60 (single) or $120 (married/head of household) for Californians who rented their main home at least half the year and meet income limits.',
@@ -1412,6 +1496,7 @@ const benefits = [
     },
     {
         id: 'child-dependent-care-credit',
+        verified: '2026-07-23',
         name: 'Child and Dependent Care Credit',
         category: 'tax',
         description: 'Federal credit for a percentage of work-related care costs paid so you can work or look for work, on up to $3,000 of expenses for one dependent or $6,000 for two or more.',
@@ -1428,6 +1513,7 @@ const benefits = [
     },
     {
         id: 'savers-credit',
+        verified: '2026-07-23',
         name: 'Saver\'s Credit (Retirement Savings Contributions Credit)',
         category: 'tax',
         description: 'Federal credit worth 10-50% of what you put into an IRA or workplace retirement plan, up to a $1,000 credit ($2,000 if married filing jointly). Income limits vary by filing status (up to about $79,000 married).',
@@ -1444,6 +1530,7 @@ const benefits = [
     },
     {
         id: 'aotc',
+        verified: '2026-07-23',
         name: 'American Opportunity Tax Credit (AOTC)',
         category: 'education',
         description: 'Federal education credit of up to $2,500 per student for the first four years of college, with up to $1,000 refundable. For income up to $90,000 (single) or $180,000 (married filing jointly).',
@@ -1451,7 +1538,7 @@ const benefits = [
             student_or_child_student: true,
             income_max: 180000
         },
-        url: 'https://www.irs.gov/credits-deductions/individuals/american-opportunity-tax-credit',
+        url: 'https://www.irs.gov/credits-deductions/individuals/education-credits-aotc-and-llc',
         howToApply: [
             'Get Form 1098-T from the college',
             'Complete Form 8863 (Education Credits)',
@@ -1462,6 +1549,7 @@ const benefits = [
     // ========== DISABILITY & DEVELOPMENTAL SERVICES ==========
     {
         id: 'regional-center',
+        verified: '2026-07-23',
         name: 'Regional Center Services (Lanterman Act)',
         category: 'disability',
         description: 'California\'s 21 regional centers coordinate lifelong services for people with developmental disabilities (intellectual disability, cerebral palsy, epilepsy, autism) that began before age 18. No income limit.',
@@ -1478,6 +1566,7 @@ const benefits = [
     },
     {
         id: 'early-start',
+        verified: '2026-07-23',
         name: 'Early Start (Early Intervention)',
         category: 'disability',
         description: 'California\'s early intervention system for infants and toddlers from birth to 36 months with a developmental delay or established risk condition, and their families. No income limit.',
@@ -1494,6 +1583,7 @@ const benefits = [
     },
     {
         id: 'dor-vr',
+        verified: '2026-07-23',
         name: 'Vocational Rehabilitation (Dept. of Rehabilitation)',
         category: 'disability',
         description: 'State services that help Californians with disabilities prepare for, obtain, keep, or advance in employment. People on SSI or SSDI are presumed eligible; no income limit for eligibility.',
@@ -1510,6 +1600,7 @@ const benefits = [
     },
     {
         id: 'calable',
+        verified: '2026-07-23',
         name: 'CalABLE Savings Accounts',
         category: 'disability',
         description: 'Tax-advantaged savings and investment accounts that let Californians with disabilities save for disability-related expenses without losing means-tested benefits like SSI or Medi-Cal. Disability must have begun before age 46.',
@@ -1525,6 +1616,7 @@ const benefits = [
     },
     {
         id: 'ticket-to-work',
+        verified: '2026-07-23',
         name: 'Ticket to Work',
         category: 'employment',
         description: 'Free, voluntary Social Security program that connects SSDI and SSI disability beneficiaries ages 18-64 with employment services and protections while they try working toward financial independence.',
@@ -1540,6 +1632,7 @@ const benefits = [
     },
     {
         id: 'home-safe',
+        verified: '2026-07-23',
         name: 'Home Safe Program',
         category: 'housing',
         description: 'California program providing housing-related help to Adult Protective Services clients (elders 60+ or dependent adults with disabilities) who are homeless or at imminent risk due to abuse, neglect, or exploitation. No income limit.',
@@ -1557,6 +1650,7 @@ const benefits = [
     },
     {
         id: 'aps',
+        verified: '2026-07-23',
         name: 'Adult Protective Services (APS)',
         category: 'seniors',
         description: 'County program that responds 24/7 to reports of abuse, neglect, self-neglect, and financial exploitation of elders 60+ and dependent adults 18-59 with disabilities, providing investigation, case management, and referrals. No income limit.',
@@ -1573,6 +1667,7 @@ const benefits = [
     },
     {
         id: 'hicap',
+        verified: '2026-07-23',
         name: 'HICAP (Medicare Counseling)',
         category: 'seniors',
         description: 'Free, unbiased one-on-one counseling on Medicare, Medigap, Medicare Advantage, Part D, and appeals for Medicare beneficiaries, people approaching eligibility, and their families. No income limit.',
@@ -1591,6 +1686,7 @@ const benefits = [
     // ========== VETERANS ==========
     {
         id: 'hud-vash',
+        verified: '2026-07-23',
         name: 'HUD-VASH (Veteran Supportive Housing)',
         category: 'veterans',
         description: 'Combines a HUD Housing Choice Voucher with VA case management and clinical services to help veterans experiencing homelessness get and keep permanent housing. No service-connected disability required.',
@@ -1607,6 +1703,7 @@ const benefits = [
     },
     {
         id: 'ssvf',
+        verified: '2026-07-23',
         name: 'Supportive Services for Veteran Families (SSVF)',
         category: 'veterans',
         description: 'VA-funded case management and time-limited financial help (rent, utilities, deposits) for very low-income veteran families who are homeless or at imminent risk of homelessness.',
@@ -1623,6 +1720,7 @@ const benefits = [
     },
     {
         id: 'calvet-home-loan',
+        verified: '2026-07-23',
         name: 'CalVet Home Loan',
         category: 'veterans',
         description: 'State home financing for veterans buying an owner-occupied California home, with competitive rates, flexible underwriting, and no minimum credit score.',
@@ -1639,6 +1737,7 @@ const benefits = [
     },
     {
         id: 'vre-ch31',
+        verified: '2026-07-23',
         name: 'Veteran Readiness and Employment (Chapter 31)',
         category: 'veterans',
         description: 'VA program helping veterans with a service-connected disability explore careers, get training, education, or coaching, and reach employment or independent living. Requires a service-connected disability rating of at least 10%.',
@@ -1655,6 +1754,7 @@ const benefits = [
     },
     {
         id: 'calvet-veterans-homes',
+        verified: '2026-07-23',
         name: 'Veterans Homes of California',
         category: 'veterans',
         description: 'State-run residential homes offering veterans levels of care from independent living and residential care to skilled nursing and memory care. Generally for veterans age 55+ (waived for disabled or homeless veterans needing care).',
@@ -1671,6 +1771,7 @@ const benefits = [
     },
     {
         id: 'dic',
+        verified: '2026-07-23',
         name: 'Dependency and Indemnity Compensation (DIC)',
         category: 'veterans',
         description: 'Tax-free monthly payment for eligible surviving spouses, children, and parents of service members who died in the line of duty or veterans who died from a service-connected condition.',
@@ -1686,6 +1787,7 @@ const benefits = [
     },
     {
         id: 'champva',
+        verified: '2026-07-23',
         name: 'CHAMPVA (Health Coverage for Dependents)',
         category: 'veterans',
         description: 'VA cost-sharing health program covering eligible spouses, dependents, and survivors of veterans who are permanently and totally disabled from a service-connected condition or who died from one. Requires not being eligible for TRICARE.',
@@ -1701,6 +1803,7 @@ const benefits = [
     },
     {
         id: 'va-aid-attendance',
+        verified: '2026-07-23',
         name: 'VA Aid and Attendance',
         category: 'veterans',
         description: 'Extra monthly amount added to a VA pension for wartime veterans or survivors who need another person\'s help with daily activities, are bedridden, or live in a nursing home. Adds several hundred dollars a month.',
@@ -1719,6 +1822,7 @@ const benefits = [
     // ========== EDUCATION & YOUTH OPPORTUNITY ==========
     {
         id: 'trio-sss',
+        verified: '2026-07-23',
         name: 'TRIO Student Support Services',
         category: 'education',
         description: 'Federal program funding colleges to provide tutoring, advising, and financial guidance that helps low-income, first-generation, and disabled students complete their degrees.',
@@ -1735,6 +1839,7 @@ const benefits = [
     },
     {
         id: 'upward-bound',
+        verified: '2026-07-23',
         name: 'Upward Bound (TRIO)',
         category: 'education',
         description: 'Federal TRIO program giving high school students precollege instruction, tutoring, counseling, and college-prep support. Serves mainly low-income and potential first-generation college students.',
@@ -1751,6 +1856,7 @@ const benefits = [
     },
     {
         id: 'talent-search',
+        verified: '2026-07-23',
         name: 'Educational Talent Search (TRIO)',
         category: 'education',
         description: 'Federal TRIO program helping disadvantaged youth ages 11-27 with counseling, college and career guidance, and financial aid information. Serves mainly low-income, potential first-generation students.',
@@ -1767,6 +1873,7 @@ const benefits = [
     },
     {
         id: 'gear-up',
+        verified: '2026-07-23',
         name: 'GEAR UP',
         category: 'education',
         description: 'Federal program funding school-community partnerships to boost college readiness for low-income students, serving whole cohorts starting no later than 7th grade with tutoring, college visits, and scholarships.',
@@ -1783,6 +1890,7 @@ const benefits = [
     },
     {
         id: 'americorps',
+        verified: '2026-07-23',
         name: 'AmeriCorps',
         category: 'education',
         description: 'National service program where members age 17+ serve full- or part-time terms addressing community needs and earn a living allowance plus a Segal Education Award for college or student loans.',
@@ -1796,6 +1904,7 @@ const benefits = [
     },
     {
         id: 'chafee-grant',
+        verified: '2026-07-23',
         name: 'California Chafee Grant for Foster Youth',
         category: 'education',
         description: 'Grant of up to $5,000 a year for current or former foster youth (not yet 26) to pay for college or vocational training. Must have been in foster care between ages 16 and 18.',
@@ -1812,6 +1921,7 @@ const benefits = [
     },
     {
         id: 'eops',
+        verified: '2026-07-23',
         name: 'EOPS (Extended Opportunity Programs and Services)',
         category: 'education',
         description: 'California Community Colleges program providing counseling, financial help, book vouchers, and academic support to students disadvantaged by economic, educational, or language barriers.',
@@ -1829,6 +1939,7 @@ const benefits = [
     },
     {
         id: 'golden-state-teacher',
+        verified: '2026-07-23',
         name: 'Golden State Teacher Grant',
         category: 'education',
         description: 'California grant of up to $10,000 for students in approved teacher or pupil-personnel preparation programs, in exchange for committing to teach two years at a high-need school.',
@@ -1845,6 +1956,7 @@ const benefits = [
     },
     {
         id: 'college-corps',
+        verified: '2026-07-23',
         name: '#CaliforniansForAll College Corps',
         category: 'education',
         description: 'California program where undergraduates complete about 450 hours of community service over an academic year in exchange for roughly $10,000 in a living allowance plus an education award. Open to Dream Act students.',
@@ -1861,6 +1973,7 @@ const benefits = [
     },
     {
         id: 'calkids',
+        verified: '2026-07-23',
         name: 'CalKIDS (College Savings for Kids)',
         category: 'education',
         description: 'State program that automatically creates college savings accounts with seed money for California newborns and low-income public school students. No application needed to receive the seed deposit.',
@@ -1879,6 +1992,7 @@ const benefits = [
     // ========== CHILDCARE ==========
     {
         id: 'early-head-start',
+        verified: '2026-07-23',
         name: 'Early Head Start',
         category: 'childcare',
         description: 'Free comprehensive child development, health, and family support for low-income infants and toddlers under age 3 and pregnant women. Families on TANF, SSI, or SNAP, in foster care, or experiencing homelessness qualify regardless of income.',
@@ -1895,6 +2009,7 @@ const benefits = [
     },
     {
         id: 'state-preschool',
+        verified: '2026-07-23',
         name: 'California State Preschool Program',
         category: 'childcare',
         description: 'California\'s largest state-funded preschool program, offering free or low-cost part-day and full-day early education, meals, and family support to eligible 3- and 4-year-olds.',
@@ -1912,6 +2027,7 @@ const benefits = [
     },
     {
         id: 'child-care-bridge',
+        verified: '2026-07-23',
         name: 'Emergency Child Care Bridge Program',
         category: 'childcare',
         description: 'California program giving foster families time-limited emergency child care vouchers, a child care navigator, and trauma-informed provider training. For foster children birth to age 5 (up to 21 with special needs) and their siblings.',
@@ -1930,6 +2046,7 @@ const benefits = [
     // ========== FOOD ==========
     {
         id: 'cacfp',
+        verified: '2026-07-23',
         name: 'CACFP (Child & Adult Care Food Program)',
         category: 'food',
         description: 'USDA program that reimburses child care centers, day care homes, afterschool programs, shelters, and adult day care for nutritious meals and snacks. Enrolled children get free meals at or below 130% FPL and reduced-price up to 185% FPL.',
@@ -1946,6 +2063,7 @@ const benefits = [
     },
     {
         id: 'tefap',
+        verified: '2026-07-23',
         name: 'TEFAP (Emergency Food Assistance)',
         category: 'food',
         description: 'Federal program providing USDA foods at no cost to low-income households through food banks, pantries, and soup kitchens. Recipients of prepared meals at shelters need no income test.',
@@ -1961,6 +2079,7 @@ const benefits = [
     },
     {
         id: 'senior-farmers-market',
+        verified: '2026-07-23',
         name: 'Senior Farmers\' Market Nutrition Program',
         category: 'food',
         description: 'Provides low-income seniors 60+ with benefits to buy fresh, locally grown fruits, vegetables, honey, and herbs at farmers\' markets, roadside stands, and CSA programs.',
@@ -1978,6 +2097,7 @@ const benefits = [
     },
     {
         id: 'wic-fmnp',
+        verified: '2026-07-23',
         name: 'WIC Farmers\' Market Nutrition Program',
         category: 'food',
         description: 'Gives WIC participants extra coupons, on top of regular WIC benefits, to buy fresh locally grown fruits, vegetables, and herbs at authorized farmers\' markets.',
@@ -1995,6 +2115,7 @@ const benefits = [
     },
     {
         id: 'market-match',
+        verified: '2026-07-23',
         name: 'CalFresh Market Match',
         category: 'food',
         description: 'California program that matches CalFresh/EBT spending dollar-for-dollar (up to a daily maximum) on fresh fruits and vegetables at 270+ participating farmers\' markets and farm stands.',
@@ -2013,6 +2134,7 @@ const benefits = [
     // ========== HOUSING ==========
     {
         id: 'fss',
+        verified: '2026-07-23',
         name: 'Family Self-Sufficiency (FSS)',
         category: 'housing',
         description: 'HUD program for families receiving housing assistance: as your earnings rise, the resulting rent increases are placed into an escrow savings account you can claim after completing a 5-year plan.',
@@ -2029,6 +2151,7 @@ const benefits = [
     },
     {
         id: 'calworks-hsp',
+        verified: '2026-07-23',
         name: 'CalWORKs Housing Support Program',
         category: 'housing',
         description: 'California program using a Housing First model to help CalWORKs families who are homeless or at risk of homelessness get rental assistance and wraparound services.',
@@ -2046,6 +2169,7 @@ const benefits = [
     },
     {
         id: 'bringing-families-home',
+        verified: '2026-07-23',
         name: 'Bringing Families Home',
         category: 'housing',
         description: 'California program providing rental assistance and housing services to child-welfare-involved families who are homeless or at risk, to support family reunification and prevent foster placement.',
@@ -2065,6 +2189,7 @@ const benefits = [
     // ========== UTILITIES ==========
     {
         id: 'esa',
+        verified: '2026-07-23',
         name: 'Energy Savings Assistance Program (ESA)',
         category: 'utilities',
         description: 'Offers income-qualified households free home weatherization and energy-efficiency upgrades — attic insulation, efficient refrigerators and furnaces, weatherstripping, and LEDs — to lower energy bills.',
@@ -2072,7 +2197,7 @@ const benefits = [
             state: ['CA'],
             income_fpl: 200
         },
-        url: 'https://www.cpuc.ca.gov/consumer-support/financial-assistance-savings-and-discounts/energy-savings-assistance-program',
+        url: 'https://www.cpuc.ca.gov/consumer-support/financial-assistance-savings-and-discounts/energy-savings-assistance',
         howToApply: [
             'Contact your utility (PG&E, SCE, SoCalGas, or SDG&E) or apply on its ESA page',
             'Submit income documentation or proof of program participation',
@@ -2083,6 +2208,7 @@ const benefits = [
     // ========== EMPLOYMENT & TRAINING ==========
     {
         id: 'wioa',
+        verified: '2026-07-23',
         name: 'WIOA Employment & Training',
         category: 'employment',
         description: 'Federal employment and training services delivered through job centers for adults and dislocated workers, including career counseling, skills training, and job placement. Priority for low-income and public-assistance recipients; veterans get priority.',
@@ -2096,6 +2222,7 @@ const benefits = [
     },
     {
         id: 'scsep',
+        verified: '2026-07-23',
         name: 'SCSEP (Senior Employment Program)',
         category: 'employment',
         description: 'Paid, part-time community-service job training for low-income adults 55+ to build skills toward regular employment. Participants earn minimum wage for about 20 hours a week.',
@@ -2112,6 +2239,7 @@ const benefits = [
     },
     {
         id: 'ajcc',
+        verified: '2026-07-23',
         name: 'America\'s Job Center of California (AJCC)',
         category: 'employment',
         description: 'California\'s network of one-stop career centers offering free job search help, resume workshops, skills assessments, labor-market info, and training referrals to all job seekers.',

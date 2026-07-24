@@ -692,6 +692,21 @@ function checkEligibility(benefit, fplPercent) {
     if (req.on_medi_cal && answers.health_insurance !== 'medi-cal') {
         return false;
     }
+
+    // Medicare requirement (Medicare Savings Programs, Extra Help, HICAP)
+    if (req.on_medicare && answers.health_insurance !== 'medicare') {
+        return false;
+    }
+
+    // Pregnancy requirement (MCAP, Early Head Start)
+    if (req.pregnant && answers.pregnant !== 'yes') {
+        return false;
+    }
+
+    // Renter requirement (Renter's Credit)
+    if (req.is_renter && !['rent', 'rural'].includes(answers.housing)) {
+        return false;
+    }
     
     // Has earned income (for EITC)
     if (req.has_earned_income) {

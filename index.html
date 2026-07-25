@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <a href="#main" class="skip-link">Skip to content</a>
+    <a href="#main" class="skip-link" data-i18n="skipLink">Skip to content</a>
 
     <!-- Decorative soft blobs behind the content -->
     <div class="bg-blobs" aria-hidden="true">
@@ -25,11 +25,16 @@
     </div>
 
     <header>
+        <nav class="lang-switcher" aria-label="Language">
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="es">ES</button>
+            <button type="button" data-lang="zh">中文</button>
+        </nav>
         <div class="brand">
             <span class="brand-mark" aria-hidden="true">🧭</span>
             <span>AiduRight</span>
         </div>
-        <p class="tagline">Find government benefits you qualify for</p>
+        <p class="tagline" data-i18n="tagline">Find government benefits you qualify for</p>
         <svg class="wave-header" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true">
             <path d="M0,24 C180,48 360,4 540,20 C760,40 1000,48 1200,28 C1320,16 1380,20 1440,26 L1440,48 L0,48 Z"/>
         </svg>
@@ -38,18 +43,13 @@
     <main id="main">
         <section id="intro" class="screen active" aria-labelledby="intro-heading" data-aos="fade-up">
             <svg class="hero-illustration" viewBox="0 0 440 240" role="img" aria-label="Illustration of diverse people surrounded by benefit icons">
-                <!-- ground -->
                 <ellipse cx="220" cy="212" rx="185" ry="24" fill="#CCFBF1" opacity="0.7"/>
-
-                <!-- elderly person with cane -->
                 <g>
                     <rect x="100" y="140" width="40" height="58" rx="16" fill="#0D9488"/>
                     <line x1="147" y1="150" x2="151" y2="200" stroke="#F97316" stroke-width="4" stroke-linecap="round"/>
                     <circle cx="120" cy="120" r="18" fill="#E0AC69"/>
                     <path d="M102,118 Q120,94 138,118 Z" fill="#9CA3AF"/>
                 </g>
-
-                <!-- family: adult + child -->
                 <g>
                     <rect x="189" y="132" width="42" height="62" rx="16" fill="#F97316"/>
                     <circle cx="210" cy="110" r="18" fill="#C68642"/>
@@ -58,8 +58,6 @@
                     <circle cx="246" cy="151" r="12" fill="#F1C27D"/>
                     <path d="M235,150 Q246,135 257,150 Z" fill="#6B7280"/>
                 </g>
-
-                <!-- student with grad cap and book -->
                 <g>
                     <rect x="309" y="140" width="42" height="56" rx="16" fill="#115E59"/>
                     <rect x="299" y="160" width="16" height="22" rx="2" fill="#FDE68A" stroke="#F97316" stroke-width="2"/>
@@ -69,8 +67,6 @@
                     <line x1="353" y1="111" x2="356" y2="126" stroke="#F97316" stroke-width="2"/>
                     <circle cx="356" cy="127" r="2.5" fill="#F97316"/>
                 </g>
-
-                <!-- floating benefit icons -->
                 <g class="float-icon" style="animation-delay:0s">
                     <circle cx="66" cy="56" r="19" fill="#fff" stroke="#14B8A6" stroke-width="2"/>
                     <rect x="63" y="47" width="6" height="18" rx="3" fill="#0D9488"/>
@@ -99,18 +95,18 @@
             </svg>
             <span class="intro-badge">
                 <span class="lock" aria-hidden="true">🔒</span>
-                Free &amp; private · No account needed
+                <span data-i18n="introBadge">Free &amp; private · No account needed</span>
             </span>
-            <h2 id="intro-heading">Get matched to benefits in minutes</h2>
-            <p>Answer a few simple questions and we'll show you the programs you may qualify for.</p>
+            <h2 id="intro-heading" data-i18n="introTitle">Get matched to benefits in minutes</h2>
+            <p data-i18n="introLead">Answer a few simple questions and we'll show you the programs you may qualify for.</p>
             <ul class="trust-list">
-                <li>Takes about 3 minutes</li>
-                <li>Your answers stay on your device</li>
-                <li>Covers food, health, housing, cash &amp; more</li>
+                <li data-i18n="trust1">Takes about 3 minutes</li>
+                <li data-i18n="trust2">Your answers stay on your device</li>
+                <li data-i18n="trust3">Covers food, health, housing, cash &amp; more</li>
             </ul>
-            <button id="start-btn" class="btn-primary">Get Started</button>
+            <button id="start-btn" class="btn-primary" data-i18n="startBtn">Get Started</button>
             <p class="privacy-note">
-                <span aria-hidden="true">🔒</span> No data stored · Nothing leaves your browser
+                <span aria-hidden="true">🔒</span> <span data-i18n="privacyNote">No data stored · Nothing leaves your browser</span>
             </p>
         </section>
 
@@ -125,16 +121,16 @@
             <div id="question-container" data-aos="fade-up" data-aos-delay="100">
                 <!-- Questions rendered here by JS -->
             </div>
-            <p class="field-error" id="field-error" role="alert">Please select an answer to continue.</p>
+            <p class="field-error" id="field-error" role="alert" data-i18n="fieldError">Please select an answer to continue.</p>
             <div class="nav-buttons">
-                <button id="back-btn" class="btn-secondary">Back</button>
-                <button id="next-btn" class="btn-primary">Next</button>
+                <button id="back-btn" class="btn-secondary" data-i18n="back">Back</button>
+                <button id="next-btn" class="btn-primary" data-i18n="next">Next</button>
             </div>
         </section>
 
         <section id="loading" class="screen" aria-live="polite">
             <div class="spinner" aria-hidden="true"></div>
-            <p>Finding programs for you…</p>
+            <p data-i18n="loading">Finding programs for you…</p>
         </section>
 
         <section id="results" class="screen" aria-labelledby="results-heading" aria-live="polite">
@@ -156,14 +152,16 @@
 
     <footer>
         <p class="privacy-note footer-privacy">
-            <span aria-hidden="true">🔒</span> Private by design — no accounts, no tracking, no data stored.
+            <span aria-hidden="true">🔒</span> <span data-i18n="footerPrivacy">Private by design — no accounts, no tracking, no data stored.</span>
         </p>
-        <p>AiduRight is for informational purposes only and is not an official eligibility determination. Always verify with the official program. Need help now? Call <strong>211</strong>.</p>
+        <p data-i18n="footerDisclaimer">AiduRight is for informational purposes only and is not an official eligibility determination. Always verify with the official program. Need help now? Call 211.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="benefits.js"></script>
+    <script src="benefits.i18n.js"></script>
+    <script src="i18n.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

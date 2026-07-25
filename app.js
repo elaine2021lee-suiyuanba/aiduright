@@ -6,6 +6,8 @@ let answers = {};
 let questionMode = 'basic'; // 'basic' or 'detailed'
 let basicResultsShown = false;
 let slideDir = 'right'; // direction of the question-transition animation
+let lastMatched = [];   // remembered so we can re-render on language change
+let lastIsDetailed = false;
 
 // DOM Elements
 const screens = {
@@ -501,16 +503,16 @@ function renderQuestion() {
 
     // Progress bar + step counter
     progressBar.style.width = progress + '%';
-    progressLabel.textContent = questionMode === 'basic' ? 'Quick Scan' : 'Deep Scan';
-    progressCount.textContent = `Question ${currentQuestion + 1} of ${total}`;
+    progressLabel.textContent = questionMode === 'basic' ? t('quickScan') : t('deepScan');
+    progressCount.textContent = t('questionCounter').replace('{n}', currentQuestion + 1).replace('{total}', total);
     if (progressBarEl) progressBarEl.setAttribute('aria-valuenow', Math.round(progress));
 
     // Hide any prior validation message
     fieldError.classList.remove('show');
 
     const isMulti = q.type === 'multiselect';
-    let html = `<h3 id="q-heading">${esc(q.text)}`;
-    if (isMulti) html += `<span class="hint">Choose all that apply.</span>`;
+    let html = `<h3 id="q-heading">${esc(tQuestionText(q))}`;
+    if (isMulti) html += `<span class="hint">${esc(t('chooseAll'))}</span>`;
     html += `</h3>`;
     html += `<div class="options" role="${isMulti ? 'group' : 'radiogroup'}" aria-labelledby="q-heading">`;
 
@@ -524,7 +526,7 @@ function renderQuestion() {
             + `data-value="${esc(opt.value)}" data-multi="${isMulti}" `
             + `role="${role}" aria-checked="${isSelected}">`
             + `<span class="indicator" aria-hidden="true"></span>`
-            + `<span class="option-label">${esc(opt.label)}</span>`
+            + `<span class="option-label">${esc(tOptionLabel(q.id, opt.value, opt.label))}</span>`
             + `</button>`;
     });
 
@@ -543,7 +545,8 @@ function renderQuestion() {
 
     // Update navigation buttons
     backBtn.style.display = currentQuestion === 0 ? 'none' : 'block';
-    nextBtn.textContent = currentQuestion === total - 1 ? 'See My Results' : 'Next';
+    backBtn.textContent = t('back');
+    nextBtn.textContent = currentQuestion === total - 1 ? t('seeResults') : t('next');
 }
 
 // Select an option
@@ -913,7 +916,9 @@ function checkEligibility(benefit, fplPercent) {
 }
 
 // Render results
-function renderResults(matchedBenefits, isDetailed = false) {
+function renderResults(matchedBenefits, isDetailed = false, celebrateOnShow = true) {
+    lastMatched = matchedBenefits;
+    lastIsDetailed = isDetailed;
     // Group by category
     const grouped = {};
     matchedBenefits.forEach(b => {
@@ -926,44 +931,52 @@ function renderResults(matchedBenefits, isDetailed = false) {
 
     if (count === 0) {
         html += `<div class="results-head">
-            <h2 id="results-heading">No matches found yet</h2>
+            <h2 id="results-heading">${esc(t('noMatchTitle'))}</h2>
         </div>`;
         html += `<div class="empty-state">
-            <p>Based on your answers, we didn't find matching programs right now. This does <strong>not</strong> mean you're ineligible — many programs have exceptions.</p>
-            <p>Free help is available. Call:</p>
+            <p>${esc(t('noMatchBody'))}</p>
+            <p>${esc(t('noMatchHelp'))}</p>
             <span class="phone">211</span>
         </div>`;
     } else {
         html += `<div class="results-head">
             <div class="results-count">${count}</div>
-            <h2 id="results-heading">program${count === 1 ? '' : 's'} you may qualify for</h2>
-            <p>Review each one below and tap “How to apply” for the steps.</p>
+            <h2 id="results-heading">${esc(count === 1 ? t('resultsSingular') : t('resultsPlural'))}</h2>
+            <p>${esc(t('resultsLead'))}</p>
         </div>`;
 
         html += `<div class="disclaimer-box">
             <span aria-hidden="true">⚠️</span>
-            <span>These are preliminary matches. Actual eligibility depends on additional factors — always verify with the official program.</span>
+            <span>${esc(t('disclaimerResults'))}</span>
         </div>`;
+
+        if (currentLang !== 'en') {
+            html += `<div class="disclaimer-box trans-note">
+                <span aria-hidden="true">🌐</span>
+                <span>${esc(t('transNote'))}</span>
+            </div>`;
+        }
 
         let cardIndex = 0;
         for (const [catId, catBenefits] of Object.entries(grouped)) {
             const cat = categories[catId];
             if (!cat) continue;
-            html += `<h3 class="category-heading"><span class="cat-icon" aria-hidden="true">${cat.icon}</span> ${esc(cat.name)}</h3>`;
+            html += `<h3 class="category-heading"><span class="cat-icon" aria-hidden="true">${cat.icon}</span> ${esc(tCategory(catId, cat.name))}</h3>`;
 
             catBenefits.forEach(b => {
-                const steps = Array.isArray(b.howToApply) ? b.howToApply : [];
+                const lb = localizeBenefit(b);
+                const steps = Array.isArray(lb.howToApply) ? lb.howToApply : [];
                 const delay = Math.min(cardIndex++ * 60, 300);
                 html += `<div class="result-card" data-aos="fade-up" data-aos-delay="${delay}">
                     <div class="card-head">
                         <span class="card-icon" aria-hidden="true">${cat.icon}</span>
-                        <h4>${esc(b.name)}</h4>
+                        <h4>${esc(lb.name)}</h4>
                     </div>
-                    <p class="card-desc">${esc(b.description)}</p>
-                    <a href="${esc(b.url)}" target="_blank" rel="noopener noreferrer" class="card-link">Visit official site <span aria-hidden="true">→</span></a>`;
+                    <p class="card-desc">${esc(lb.description)}</p>
+                    <a href="${esc(lb.url)}" target="_blank" rel="noopener noreferrer" class="card-link">${esc(t('visitSite'))} <span aria-hidden="true">→</span></a>`;
                 if (steps.length) {
                     html += `<details class="apply-details">
-                        <summary><span class="chevron" aria-hidden="true">▶</span> How to apply</summary>
+                        <summary><span class="chevron" aria-hidden="true">▶</span> ${esc(t('howToApply'))}</summary>
                         <ol class="apply-steps">
                             ${steps.map(s => `<li>${esc(s)}</li>`).join('')}
                         </ol>
@@ -979,13 +992,20 @@ function renderResults(matchedBenefits, isDetailed = false) {
         basicResultsShown = true;
         html += `<div class="unlock-more-card">
             <div class="unlock-icon" aria-hidden="true">🔍</div>
-            <h3>Find even more benefits</h3>
-            <p>A few more optional questions can uncover additional programs — like veteran benefits, specialized housing, and education grants.</p>
-            <button id="unlock-btn" class="btn-unlock">Answer a few more questions</button>
+            <h3>${esc(t('unlockTitle'))}</h3>
+            <p>${esc(t('unlockBody'))}</p>
+            <button id="unlock-btn" class="btn-unlock">${esc(t('unlockBtn'))}</button>
         </div>`;
     }
 
-    html += '<button id="restart-btn" class="btn-secondary restart-btn">Start Over</button>';
+    if (count > 0) {
+        html += `<div class="results-actions">
+            <button id="print-btn" class="btn-action" type="button">🖨️ <span>${esc(t('print'))}</span></button>
+            <button id="copy-btn" class="btn-action" type="button">📋 <span>${esc(t('copy'))}</span></button>
+            <button id="share-btn" class="btn-action" type="button" hidden>🔗 <span>${esc(t('share'))}</span></button>
+        </div>`;
+    }
+    html += `<button id="restart-btn" class="btn-secondary restart-btn">${esc(t('restart'))}</button>`;
     screens.results.innerHTML = html;
     
     // Restart button
@@ -1009,11 +1029,50 @@ function renderResults(matchedBenefits, isDetailed = false) {
         });
     }
 
+    // Save / print / share actions
+    const printBtn = document.getElementById('print-btn');
+    if (printBtn) printBtn.addEventListener('click', () => window.print());
+
+    const copyBtn = document.getElementById('copy-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(buildSummary());
+                const lbl = copyBtn.querySelector('span');
+                if (lbl) {
+                    const orig = lbl.textContent;
+                    lbl.textContent = t('copied');
+                    setTimeout(() => { lbl.textContent = orig; }, 1800);
+                }
+            } catch (e) { /* clipboard unavailable */ }
+        });
+    }
+
+    const shareBtn = document.getElementById('share-btn');
+    if (shareBtn && navigator.share) {
+        shareBtn.hidden = false;
+        shareBtn.addEventListener('click', async () => {
+            try { await navigator.share({ title: t('summaryTitle'), text: buildSummary() }); }
+            catch (e) { /* cancelled */ }
+        });
+    }
+
     // Re-scan the freshly-injected cards so AOS observes them
     if (window.AOS) AOS.refreshHard();
 
-    // Celebrate a successful match (once per results view)
-    if (matchedBenefits.length > 0) celebrate();
+    // Celebrate a successful match (once per results view, not on re-render)
+    if (celebrateOnShow && matchedBenefits.length > 0) celebrate();
+}
+
+// Plain-text summary of matched programs, for copy / share (localized)
+function buildSummary() {
+    const lines = [t('summaryTitle'), ''];
+    lastMatched.forEach(b => {
+        const lb = localizeBenefit(b);
+        lines.push(`• ${lb.name}\n  ${lb.url}`);
+    });
+    lines.push('', t('footerDisclaimer'));
+    return lines.join('\n');
 }
 
 // Event Listeners
@@ -1064,3 +1123,12 @@ nextBtn.addEventListener('click', () => {
         }, 1000);
     }
 });
+
+// Called by i18n.js when the language changes: re-render whatever's on screen
+window.rerenderScreen = function () {
+    if (screens.results.classList.contains('active')) {
+        renderResults(lastMatched, lastIsDetailed, false);
+    } else if (screens.questionnaire.classList.contains('active')) {
+        renderQuestion();
+    }
+};

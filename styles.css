@@ -1052,3 +1052,24 @@ footer {
     .logo-a, .logo-idu { color: var(--teal-dark); }
     .logo-right { color: #FA8072; }
 }
+
+/* ---------- Image logo (extracted brand asset) ---------- */
+.logo-img {
+    height: 2.3rem;
+    width: auto;
+    display: block;
+}
+.logo-print { display: none; }
+@media (max-width: 480px) {
+    .logo-img { height: 2rem; }
+}
+@media print {
+    .logo-img { display: none; }
+    .logo-print {
+        display: inline;
+        font-family: 'Nunito', var(--font-head);
+        font-weight: 800;
+        font-size: 1.6rem;
+        color: var(--teal-dark);
+    }
+}

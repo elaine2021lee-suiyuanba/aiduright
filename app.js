@@ -957,6 +957,24 @@ function renderResults(matchedBenefits, isDetailed = false, celebrateOnShow = tr
             </div>`;
         }
 
+        // Aggregated document checklist across all matched programs
+        const allDocs = collectDocs(matchedBenefits);
+        if (allDocs.length) {
+            const checked = getCheckedDocs();
+            html += `<div class="doc-checklist">
+                <h3><span aria-hidden="true">📋</span> ${esc(t('docsChecklistTitle'))}</h3>
+                <p>${esc(t('docsChecklistLead'))}</p>
+                <ul class="doc-check-list">
+                    ${allDocs.map(k => `<li>
+                        <label class="doc-item">
+                            <input type="checkbox" data-doc="${esc(k)}"${checked.includes(k) ? ' checked' : ''}>
+                            <span>${esc(tDoc(k))}</span>
+                        </label>
+                    </li>`).join('')}
+                </ul>
+            </div>`;
+        }
+
         let cardIndex = 0;
         for (const [catId, catBenefits] of Object.entries(grouped)) {
             const cat = categories[catId];
@@ -981,6 +999,13 @@ function renderResults(matchedBenefits, isDetailed = false, celebrateOnShow = tr
                             ${steps.map(s => `<li>${esc(s)}</li>`).join('')}
                         </ol>
                     </details>`;
+                }
+                const docs = Array.isArray(b.documents) ? b.documents : [];
+                if (docs.length) {
+                    html += `<div class="card-docs">
+                        <span class="card-docs-title">${esc(t('docsCardTitle'))}</span>
+                        <ul>${docs.map(k => `<li>${esc(tDoc(k))}</li>`).join('')}</ul>
+                    </div>`;
                 }
                 html += `</div>`;
             });
@@ -1057,6 +1082,16 @@ function renderResults(matchedBenefits, isDetailed = false, celebrateOnShow = tr
         });
     }
 
+    // Persist document-checklist ticks (privacy-preserving: localStorage only)
+    document.querySelectorAll('.doc-item input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', () => {
+            let checked = getCheckedDocs();
+            if (cb.checked) { if (!checked.includes(cb.dataset.doc)) checked.push(cb.dataset.doc); }
+            else { checked = checked.filter(k => k !== cb.dataset.doc); }
+            try { localStorage.setItem('aiduright_docs_checked', JSON.stringify(checked)); } catch (e) {}
+        });
+    });
+
     // Re-scan the freshly-injected cards so AOS observes them
     if (window.AOS) AOS.refreshHard();
 
@@ -1071,8 +1106,26 @@ function buildSummary() {
         const lb = localizeBenefit(b);
         lines.push(`• ${lb.name}\n  ${lb.url}`);
     });
+    const docs = collectDocs(lastMatched);
+    if (docs.length) {
+        lines.push('', t('docsChecklistTitle') + ':');
+        docs.forEach(k => lines.push('  [ ] ' + tDoc(k)));
+    }
     lines.push('', t('footerDisclaimer'));
     return lines.join('\n');
+}
+
+// Unique document keys across matched programs, in canonical display order
+function collectDocs(list) {
+    const order = Object.keys(I18N.documents);
+    const seen = new Set();
+    list.forEach(b => (b.documents || []).forEach(k => seen.add(k)));
+    return order.filter(k => seen.has(k));
+}
+
+function getCheckedDocs() {
+    try { return JSON.parse(localStorage.getItem('aiduright_docs_checked') || '[]'); }
+    catch (e) { return []; }
 }
 
 // Event Listeners

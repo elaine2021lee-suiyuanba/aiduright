@@ -916,3 +916,99 @@ footer {
     .lang-switcher { top: 0.55rem; right: 0.55rem; }
     .lang-switcher button { padding: 0.4rem 0.5rem; font-size: 0.75rem; min-height: 38px; }
 }
+
+/* ==========================================================================
+   Document checklist
+   ========================================================================== */
+.doc-checklist {
+    background: var(--coral-tint);
+    border: 1.5px solid rgba(249, 115, 22, 0.2);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.35rem;
+    margin: 1.5rem 0;
+}
+.doc-checklist h3 {
+    font-size: 1.15rem;
+    color: var(--coral-dark);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+.doc-checklist > p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+.doc-check-list {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+}
+.doc-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    min-height: 44px;
+    padding: 0.6rem 0.75rem;
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.98rem;
+    line-height: 1.4;
+    transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+}
+.doc-item:hover { border-color: var(--coral); }
+.doc-item input {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    accent-color: var(--teal);
+    cursor: pointer;
+}
+.doc-item:has(input:checked) {
+    background: var(--teal-tint);
+    border-color: var(--teal);
+}
+.doc-item:has(input:checked) span {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+}
+
+/* Per-card "documents to prepare" */
+.card-docs {
+    margin-top: 0.6rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--line);
+}
+.card-docs-title {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+}
+.card-docs ul {
+    list-style: none;
+    display: grid;
+    gap: 0.3rem;
+}
+.card-docs li {
+    position: relative;
+    padding-left: 1.35rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+}
+.card-docs li::before {
+    content: '📄';
+    position: absolute;
+    left: 0;
+    font-size: 0.82rem;
+}
+
+@media print {
+    .doc-checklist, .card-docs { break-inside: avoid; }
+    .doc-checklist { background: none; border: 1px solid #ccc; }
+}

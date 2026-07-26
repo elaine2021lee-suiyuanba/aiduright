@@ -59,7 +59,11 @@ const I18N = {
       share: 'Share',
       transNote: 'Program details are machine-translated — please confirm with the official program.',
       summaryTitle: 'AiduRight — programs you may qualify for',
-      langLabel: 'Language'
+      langLabel: 'Language',
+      docsCardTitle: 'Documents to prepare',
+      docsChecklistTitle: 'Your document checklist',
+      docsChecklistLead: 'Gather these once — they cover all your matched programs.',
+      docsNone: 'No documents needed to get started.'
     },
     es: {
       tagline: 'Encuentra beneficios del gobierno para los que califiques',
@@ -101,7 +105,11 @@ const I18N = {
       share: 'Compartir',
       transNote: 'Los detalles del programa están traducidos automáticamente; confírmalos con el programa oficial.',
       summaryTitle: 'AiduRight — programas para los que podrías calificar',
-      langLabel: 'Idioma'
+      langLabel: 'Idioma',
+      docsCardTitle: 'Documentos que necesitas',
+      docsChecklistTitle: 'Tu lista de documentos',
+      docsChecklistLead: 'Reúnelos una vez: cubren todos tus programas.',
+      docsNone: 'No necesitas documentos para empezar.'
     },
     zh: {
       tagline: '找到你符合条件的政府福利',
@@ -143,8 +151,32 @@ const I18N = {
       share: '分享',
       transNote: '项目详情为机器翻译,请以官方项目为准。',
       summaryTitle: 'AiduRight —— 你可能符合条件的项目',
-      langLabel: '语言'
+      langLabel: '语言',
+      docsCardTitle: '需要准备的材料',
+      docsChecklistTitle: '你的材料清单',
+      docsChecklistLead: '备齐这些即可 —— 覆盖你匹配到的所有项目。',
+      docsNone: '无需材料即可开始。'
     }
+  },
+
+  // Canonical document types — programs reference these keys; labels shown per language.
+  documents: {
+    photo_id:          { en: "Government photo ID (driver's license, state ID, or passport)", es: 'Identificación con foto del gobierno (licencia, ID estatal o pasaporte)', zh: '政府带照片证件(驾照、州证件或护照)' },
+    ssn:               { en: 'Social Security number or card', es: 'Número o tarjeta de Seguro Social', zh: '社会安全号码(SSN)或卡' },
+    proof_income:      { en: 'Proof of income (recent pay stubs or benefit letters)', es: 'Comprobante de ingresos (recibos de pago recientes o cartas de beneficios)', zh: '收入证明(近期工资单或福利证明信)' },
+    tax_return:        { en: 'Most recent tax return', es: 'Declaración de impuestos más reciente', zh: '最近一年的报税表' },
+    proof_address:     { en: 'Proof of California address (utility bill or lease)', es: 'Comprobante de domicilio en California (recibo de servicios o contrato de renta)', zh: '加州住址证明(水电账单或租约)' },
+    immigration_docs:  { en: 'Immigration or legal status documents (if applicable)', es: 'Documentos de inmigración o estatus legal (si aplica)', zh: '移民或合法身份文件(如适用)' },
+    bank_statements:   { en: 'Bank statements or proof of assets', es: 'Estados de cuenta bancarios o comprobante de bienes', zh: '银行对账单或资产证明' },
+    medical_records:   { en: "Medical records or a doctor's certification", es: 'Registros médicos o certificación de un médico', zh: '医疗记录或医生证明' },
+    dd214:             { en: 'DD-214 (military discharge papers)', es: 'DD-214 (papeles de baja militar)', zh: 'DD-214(退伍证明文件)' },
+    lease:             { en: 'Lease or rental agreement', es: 'Contrato de arrendamiento o renta', zh: '租约或租房协议' },
+    proof_pregnancy:   { en: "Proof of pregnancy (doctor's note)", es: 'Comprobante de embarazo (nota del médico)', zh: '怀孕证明(医生证明)' },
+    school_enrollment: { en: 'Proof of school enrollment or a completed FAFSA', es: 'Comprobante de inscripción escolar o FAFSA', zh: '在校证明或已填的 FAFSA' },
+    benefit_proof:     { en: 'Proof of current benefits (CalFresh, Medi-Cal, SSI, etc.)', es: 'Comprobante de beneficios actuales (CalFresh, Medi-Cal, SSI, etc.)', zh: '现有福利证明(CalFresh、Medi-Cal、SSI 等)' },
+    child_info:        { en: "Children's documents (birth certificates, school or immunization records)", es: 'Documentos de los hijos (actas de nacimiento, registros escolares o de vacunas)', zh: '子女文件(出生证、学校或疫苗记录)' },
+    birth_certificate: { en: 'Birth certificate', es: 'Acta de nacimiento', zh: '出生证明' },
+    marriage_certificate: { en: 'Marriage certificate (for spouse or dependent benefits)', es: 'Acta de matrimonio (para beneficios de cónyuge o dependiente)', zh: '结婚证(用于配偶/受抚养人福利)' }
   },
 
   categories: {
@@ -321,6 +353,11 @@ function tCategory(id, fallback) {
   if (currentLang === 'en') return fallback;
   const c = I18N.categories[id];
   return (c && c[currentLang]) || fallback;
+}
+
+function tDoc(key) {
+  const d = I18N.documents[key];
+  return d ? (d[currentLang] || d.en) : key;
 }
 
 function tQuestionText(q) {

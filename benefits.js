@@ -5,6 +5,7 @@ const benefits = [
     // ========== HEALTHCARE ==========
     {
         id: 'medi-cal',
+        documents: ["proof_income","photo_id","proof_address","immigration_docs"],
         verified: '2026-07-23',
         name: 'Medi-Cal',
         category: 'healthcare',
@@ -24,6 +25,7 @@ const benefits = [
     },
     {
         id: 'medicare',
+        documents: ["photo_id","ssn","proof_address"],
         verified: '2026-07-23',
         name: 'Medicare',
         category: 'healthcare',
@@ -42,6 +44,7 @@ const benefits = [
     },
     {
         id: 'covered-ca',
+        documents: ["proof_income","photo_id","proof_address","immigration_docs"],
         verified: '2026-07-23',
         name: 'Covered California',
         category: 'healthcare',
@@ -63,6 +66,7 @@ const benefits = [
     // ========== FOOD ASSISTANCE ==========
     {
         id: 'calfresh',
+        documents: ["proof_income","photo_id","proof_address","immigration_docs"],
         verified: null,
         name: 'CalFresh (SNAP/Food Stamps)',
         category: 'food',
@@ -82,6 +86,7 @@ const benefits = [
     },
     {
         id: 'wic',
+        documents: ["proof_income","photo_id","proof_address","child_info","proof_pregnancy"],
         verified: null,
         name: 'WIC (Women, Infants, Children)',
         category: 'food',
@@ -101,6 +106,7 @@ const benefits = [
     },
     {
         id: 'school-meals',
+        documents: [],
         verified: null,
         name: 'Free School Meals',
         category: 'food',
@@ -118,6 +124,7 @@ const benefits = [
     },
     {
         id: 'summer-ebt',
+        documents: [],
         verified: null,
         name: 'Summer EBT (SUN Bucks)',
         category: 'food',
@@ -135,6 +142,7 @@ const benefits = [
     },
     {
         id: 'sfsp',
+        documents: [],
         verified: null,
         name: 'Summer Meals Program',
         category: 'food',
@@ -151,6 +159,7 @@ const benefits = [
     },
     {
         id: 'csfp',
+        documents: ["photo_id","proof_income","proof_address"],
         verified: null,
         name: 'CSFP (Senior Food Box)',
         category: 'food',
@@ -171,6 +180,7 @@ const benefits = [
     // ========== CASH ASSISTANCE ==========
     {
         id: 'ssi',
+        documents: ["photo_id","ssn","proof_income","bank_statements","medical_records"],
         verified: null,
         name: 'SSI (Supplemental Security Income)',
         category: 'cash',
@@ -191,6 +201,7 @@ const benefits = [
     },
     {
         id: 'calworks',
+        documents: ["proof_income","photo_id","proof_address","child_info"],
         verified: null,
         name: 'CalWORKs (TANF)',
         category: 'cash',
@@ -210,6 +221,7 @@ const benefits = [
     },
     {
         id: 'ga',
+        documents: ["proof_income","photo_id","proof_address"],
         verified: null,
         name: 'General Assistance',
         category: 'cash',
@@ -231,6 +243,7 @@ const benefits = [
     // ========== HOUSING ==========
     {
         id: 'section8',
+        documents: ["proof_income","photo_id","proof_address"],
         verified: null,
         name: 'Section 8 (Housing Choice Voucher)',
         category: 'housing',
@@ -248,6 +261,7 @@ const benefits = [
     },
     {
         id: 'lihtc',
+        documents: ["proof_income","photo_id","proof_address"],
         verified: null,
         name: 'Affordable Housing (LIHTC)',
         category: 'housing',
@@ -264,6 +278,7 @@ const benefits = [
     },
     {
         id: 'erap',
+        documents: ["lease","proof_income","proof_address","photo_id"],
         verified: null,
         name: 'Emergency Rental Assistance',
         category: 'housing',
@@ -284,6 +299,7 @@ const benefits = [
     // ========== UTILITIES ==========
     {
         id: 'liheap',
+        documents: ["proof_income","proof_address","photo_id"],
         verified: null,
         name: 'LIHEAP (Utility Bill Help)',
         category: 'utilities',
@@ -300,6 +316,7 @@ const benefits = [
     },
     {
         id: 'care',
+        documents: ["proof_income","proof_address","benefit_proof"],
         verified: null,
         name: 'CARE (California Alternate Rates for Energy)',
         category: 'utilities',
@@ -317,6 +334,7 @@ const benefits = [
     },
     {
         id: 'fera',
+        documents: ["proof_income","proof_address"],
         verified: null,
         name: 'FERA (Family Electric Rate Assistance)',
         category: 'utilities',
@@ -336,6 +354,7 @@ const benefits = [
     },
     {
         id: 'lifeline',
+        documents: ["proof_income","benefit_proof","photo_id"],
         verified: null,
         name: 'Lifeline (Phone/Internet Discount)',
         category: 'utilities',
@@ -353,6 +372,7 @@ const benefits = [
     // ========== SENIORS & DISABILITY ==========
     {
         id: 'ihss',
+        documents: ["benefit_proof","medical_records","photo_id"],
         verified: null,
         name: 'IHSS (In-Home Supportive Services)',
         category: 'seniors',
@@ -372,6 +392,7 @@ const benefits = [
     },
     {
         id: 'mssp',
+        documents: ["benefit_proof","medical_records","photo_id"],
         verified: null,
         name: 'MSSP (Multipurpose Senior Services)',
         category: 'seniors',
@@ -391,6 +412,7 @@ const benefits = [
     },
     {
         id: 'senior-nutrition',
+        documents: ["photo_id"],
         verified: null,
         name: 'Senior Nutrition Program',
         category: 'seniors',
@@ -409,6 +431,7 @@ const benefits = [
     // ========== CHILDCARE & EDUCATION ==========
     {
         id: 'head-start',
+        documents: ["proof_income","child_info","birth_certificate","proof_address"],
         verified: null,
         name: 'Head Start / Early Head Start',
         category: 'childcare',
@@ -426,6 +449,7 @@ const benefits = [
     },
     {
         id: 'ccap',
+        documents: ["proof_income","child_info","proof_address"],
         verified: null,
         name: 'Childcare Assistance (CalWORKs)',
         category: 'childcare',
@@ -445,6 +469,7 @@ const benefits = [
     },
     {
         id: 'pell-grant',
+        documents: ["tax_return","school_enrollment","proof_income"],
         verified: null,
         name: 'Pell Grant',
         category: 'education',
@@ -462,6 +487,7 @@ const benefits = [
     },
     {
         id: 'cal-grant',
+        documents: ["tax_return","school_enrollment","proof_income"],
         verified: null,
         name: 'Cal Grant',
         category: 'education',
@@ -482,6 +508,7 @@ const benefits = [
     // ========== DISABILITY ==========
     {
         id: 'ssdi',
+        documents: ["medical_records","photo_id","ssn"],
         verified: null,
         name: 'SSDI (Social Security Disability)',
         category: 'disability',
@@ -499,6 +526,7 @@ const benefits = [
     },
     {
         id: 'sdi',
+        documents: ["medical_records","photo_id","proof_income"],
         verified: null,
         name: 'State Disability Insurance (SDI)',
         category: 'disability',
@@ -516,6 +544,7 @@ const benefits = [
     },
     {
         id: 'pfl',
+        documents: ["medical_records","birth_certificate","photo_id"],
         verified: null,
         name: 'Paid Family Leave (PFL)',
         category: 'disability',
@@ -535,6 +564,7 @@ const benefits = [
     // ========== TRANSPORTATION ==========
     {
         id: 'transit-discount',
+        documents: ["photo_id","proof_income","medical_records"],
         verified: null,
         name: 'Reduced Fare Transit',
         category: 'transportation',
@@ -551,6 +581,7 @@ const benefits = [
     },
     {
         id: 'paratransit',
+        documents: ["medical_records","photo_id"],
         verified: null,
         name: 'Paratransit Services',
         category: 'transportation',
@@ -569,6 +600,7 @@ const benefits = [
     // ========== LEGAL & OTHER ==========
     {
         id: 'legal-aid',
+        documents: ["proof_income","photo_id"],
         verified: null,
         name: 'Free Legal Aid',
         category: 'other',
@@ -585,6 +617,7 @@ const benefits = [
     },
     {
         id: '211',
+        documents: [],
         verified: null,
         name: '211 - Community Resource Helpline',
         category: 'other',
@@ -599,6 +632,7 @@ const benefits = [
     },
     {
         id: 'food-bank',
+        documents: [],
         verified: null,
         name: 'Local Food Banks',
         category: 'food',
@@ -615,6 +649,7 @@ const benefits = [
     // ========== OTHER ==========
     {
         id: 'eitc',
+        documents: ["tax_return","proof_income","ssn"],
         verified: null,
         name: 'EITC (Earned Income Tax Credit)',
         category: 'tax',
@@ -633,6 +668,7 @@ const benefits = [
     },
     {
         id: 'free-tax-prep',
+        documents: ["tax_return","photo_id","ssn","proof_income"],
         verified: null,
         name: 'VITA Free Tax Preparation',
         category: 'tax',
@@ -651,6 +687,7 @@ const benefits = [
     // ========== VETERANS ==========
     {
         id: 'va-healthcare',
+        documents: ["dd214","photo_id","proof_income"],
         verified: null,
         detailedOnly: false,
         name: 'VA Healthcare',
@@ -669,6 +706,7 @@ const benefits = [
     },
     {
         id: 'gi-bill',
+        documents: ["dd214","school_enrollment"],
         verified: null,
         name: 'GI Bill (Education Benefits)',
         category: 'veterans',
@@ -685,6 +723,7 @@ const benefits = [
     },
     {
         id: 'calvet-fee-waiver',
+        documents: ["dd214","birth_certificate","school_enrollment"],
         verified: null,
         name: 'CalVet College Fee Waiver',
         category: 'veterans',
@@ -702,6 +741,7 @@ const benefits = [
     },
     {
         id: 'vhhp',
+        documents: ["dd214","photo_id","proof_income"],
         verified: null,
         name: 'Veterans Housing Program (VHHP)',
         category: 'veterans',
@@ -720,6 +760,7 @@ const benefits = [
     },
     {
         id: 'va-disability',
+        documents: ["dd214","medical_records"],
         verified: null,
         name: 'VA Disability Compensation',
         category: 'veterans',
@@ -737,6 +778,7 @@ const benefits = [
     },
     {
         id: 'va-pension',
+        documents: ["dd214","proof_income","medical_records"],
         verified: null,
         name: 'VA Pension',
         category: 'veterans',
@@ -757,6 +799,7 @@ const benefits = [
     // ========== IMMIGRANTS ==========
     {
         id: 'capi',
+        documents: ["immigration_docs","proof_income","photo_id"],
         verified: null,
         name: 'CAPI (Cash Assistance for Immigrants)',
         category: 'immigrants',
@@ -776,6 +819,7 @@ const benefits = [
     },
     {
         id: 'rca',
+        documents: ["immigration_docs","photo_id","proof_income"],
         verified: null,
         name: 'Refugee Cash Assistance (RCA)',
         category: 'immigrants',
@@ -793,6 +837,7 @@ const benefits = [
     },
     {
         id: 'rma',
+        documents: ["immigration_docs","photo_id","proof_income"],
         verified: null,
         name: 'Refugee Medical Assistance (RMA)',
         category: 'immigrants',
@@ -810,6 +855,7 @@ const benefits = [
     },
     {
         id: 'cfap',
+        documents: ["immigration_docs","proof_income","photo_id","proof_address"],
         verified: null,
         name: 'CFAP (CA Food Assistance Program)',
         category: 'immigrants',
@@ -830,6 +876,7 @@ const benefits = [
     // ========== MORE HOUSING ==========
     {
         id: 'calworks-ha',
+        documents: ["photo_id","proof_income","child_info","benefit_proof"],
         verified: null,
         name: 'CalWORKs Homeless Assistance',
         category: 'housing',
@@ -848,6 +895,7 @@ const benefits = [
     },
     {
         id: 'hdap',
+        documents: ["photo_id","medical_records","proof_income"],
         verified: null,
         name: 'HDAP (Housing & Disability Advocacy)',
         category: 'housing',
@@ -866,6 +914,7 @@ const benefits = [
     },
     {
         id: 'public-housing',
+        documents: ["proof_income","photo_id","proof_address","immigration_docs"],
         verified: null,
         name: 'Public Housing',
         category: 'housing',
@@ -883,6 +932,7 @@ const benefits = [
     },
     {
         id: 'usda-rural',
+        documents: ["proof_income","tax_return","bank_statements","photo_id"],
         verified: null,
         name: 'USDA Rural Housing Loans',
         category: 'housing',
@@ -902,6 +952,7 @@ const benefits = [
     // ========== MORE HEALTHCARE ==========
     {
         id: 'denti-cal',
+        documents: ["benefit_proof"],
         verified: '2026-07-23',
         name: 'Medi-Cal Dental Program (Denti-Cal)',
         category: 'healthcare',
@@ -919,6 +970,7 @@ const benefits = [
     },
     {
         id: 'chip',
+        documents: ["proof_income","photo_id","child_info","proof_address"],
         verified: '2026-07-23',
         name: 'CHIP (Children\'s Health Insurance)',
         category: 'healthcare',
@@ -937,6 +989,7 @@ const benefits = [
     },
     {
         id: 'family-pact',
+        documents: ["photo_id","proof_income"],
         verified: '2026-07-23',
         name: 'Family PACT',
         category: 'healthcare',
@@ -955,6 +1008,7 @@ const benefits = [
     },
     {
         id: 'cmsp',
+        documents: ["proof_income","photo_id","proof_address"],
         verified: '2026-07-23',
         name: 'CMSP (County Medical Services)',
         category: 'healthcare',
@@ -975,6 +1029,7 @@ const benefits = [
     // ========== MORE EDUCATION ==========
     {
         id: 'fseog',
+        documents: ["school_enrollment","proof_income","tax_return"],
         verified: null,
         name: 'FSEOG (Supplemental Grant)',
         category: 'education',
@@ -993,6 +1048,7 @@ const benefits = [
     },
     {
         id: 'work-study',
+        documents: ["school_enrollment","proof_income","tax_return"],
         verified: null,
         name: 'Federal Work-Study',
         category: 'education',
@@ -1010,6 +1066,7 @@ const benefits = [
     },
     {
         id: 'ca-dream-act',
+        documents: ["school_enrollment","proof_income","tax_return"],
         verified: null,
         name: 'CA Dream Act',
         category: 'education',
@@ -1028,6 +1085,7 @@ const benefits = [
     },
     {
         id: 'middle-class-scholarship',
+        documents: ["school_enrollment","proof_income","tax_return"],
         verified: null,
         name: 'Middle Class Scholarship',
         category: 'education',
@@ -1046,6 +1104,7 @@ const benefits = [
     },
     {
         id: 'bog-fee-waiver',
+        documents: ["school_enrollment","proof_income"],
         verified: null,
         name: 'CA College Promise Grant',
         category: 'education',
@@ -1066,6 +1125,7 @@ const benefits = [
     // ========== EMPLOYMENT ==========
     {
         id: 'unemployment',
+        documents: ["photo_id","ssn","proof_income"],
         verified: null,
         name: 'Unemployment Insurance (UI)',
         category: 'employment',
@@ -1084,6 +1144,7 @@ const benefits = [
     },
     {
         id: 'calfresh-employment',
+        documents: ["benefit_proof","photo_id"],
         verified: null,
         name: 'CalFresh Employment & Training',
         category: 'employment',
@@ -1103,6 +1164,7 @@ const benefits = [
     // ========== MORE UTILITIES ==========
     {
         id: 'wap',
+        documents: ["proof_income","photo_id","proof_address"],
         verified: null,
         name: 'Weatherization Assistance Program',
         category: 'utilities',
@@ -1119,6 +1181,7 @@ const benefits = [
     },
     {
         id: 'reach',
+        documents: ["proof_income","photo_id","proof_address"],
         verified: null,
         name: 'REACH (PG&E Emergency Help)',
         category: 'utilities',
@@ -1137,6 +1200,7 @@ const benefits = [
     },
     {
         id: 'medical-baseline',
+        documents: ["medical_records","proof_address"],
         verified: null,
         name: 'Medical Baseline Allowance',
         category: 'utilities',
@@ -1156,6 +1220,7 @@ const benefits = [
     // ========== MORE FOOD ==========
     {
         id: 'calfresh-restaurant',
+        documents: ["benefit_proof","photo_id"],
         verified: null,
         name: 'CalFresh Restaurant Meals',
         category: 'food',
@@ -1174,6 +1239,7 @@ const benefits = [
     },
     {
         id: 'produce-rx',
+        documents: ["medical_records","proof_income"],
         verified: null,
         name: 'Produce Rx Programs',
         category: 'food',
@@ -1193,6 +1259,7 @@ const benefits = [
     // ========== SENIORS ==========
     {
         id: 'senior-legal',
+        documents: ["photo_id"],
         verified: null,
         name: 'Senior Legal Services',
         category: 'seniors',
@@ -1209,6 +1276,7 @@ const benefits = [
     },
     {
         id: 'ombudsman',
+        documents: [],
         verified: null,
         name: 'Long-Term Care Ombudsman',
         category: 'seniors',
@@ -1227,6 +1295,7 @@ const benefits = [
     // ========== COUNTY & SPECIALIZED HEALTHCARE ==========
     {
         id: 'healthy-sf',
+        documents: ["proof_income","photo_id","proof_address"],
         verified: '2026-07-23',
         name: 'Healthy San Francisco',
         category: 'healthcare',
@@ -1245,6 +1314,7 @@ const benefits = [
     },
     {
         id: 'ccs',
+        documents: ["medical_records","child_info","proof_income","proof_address"],
         verified: '2026-07-23',
         name: 'California Children\'s Services (CCS)',
         category: 'healthcare',
@@ -1262,6 +1332,7 @@ const benefits = [
     },
     {
         id: 'ghpp',
+        documents: ["medical_records","proof_income","proof_address"],
         verified: '2026-07-23',
         name: 'Genetically Handicapped Persons Program (GHPP)',
         category: 'healthcare',
@@ -1279,6 +1350,7 @@ const benefits = [
     },
     {
         id: 'every-woman-counts',
+        documents: ["photo_id","proof_income"],
         verified: '2026-07-23',
         name: 'Every Woman Counts',
         category: 'healthcare',
@@ -1296,6 +1368,7 @@ const benefits = [
     },
     {
         id: 'mcap',
+        documents: ["proof_pregnancy","proof_income","proof_address"],
         verified: '2026-07-23',
         name: 'Medi-Cal Access Program (MCAP)',
         category: 'healthcare',
@@ -1315,6 +1388,7 @@ const benefits = [
     },
     {
         id: 'medi-cal-wdp',
+        documents: ["medical_records","proof_income","photo_id"],
         verified: '2026-07-23',
         name: 'Medi-Cal 250% Working Disabled Program',
         category: 'healthcare',
@@ -1334,6 +1408,7 @@ const benefits = [
     },
     {
         id: 'medicare-savings',
+        documents: ["proof_income","photo_id","benefit_proof"],
         verified: '2026-07-23',
         name: 'Medicare Savings Programs (QMB/SLMB/QI)',
         category: 'healthcare',
@@ -1351,6 +1426,7 @@ const benefits = [
     },
     {
         id: 'medicare-extra-help',
+        documents: ["proof_income","bank_statements","benefit_proof"],
         verified: '2026-07-23',
         name: 'Extra Help (Medicare Part D Low-Income Subsidy)',
         category: 'healthcare',
@@ -1368,6 +1444,7 @@ const benefits = [
     },
     {
         id: 'pace',
+        documents: ["medical_records","benefit_proof","photo_id"],
         verified: '2026-07-23',
         name: 'PACE (Program of All-Inclusive Care for the Elderly)',
         category: 'seniors',
@@ -1386,6 +1463,7 @@ const benefits = [
     },
     {
         id: 'cbas',
+        documents: ["benefit_proof","medical_records"],
         verified: '2026-07-23',
         name: 'Community-Based Adult Services (CBAS)',
         category: 'seniors',
@@ -1406,6 +1484,7 @@ const benefits = [
     // ========== TAX CREDITS ==========
     {
         id: 'caleitc',
+        documents: ["tax_return","proof_income","ssn"],
         verified: '2026-07-23',
         name: 'CalEITC (California Earned Income Tax Credit)',
         category: 'tax',
@@ -1424,6 +1503,7 @@ const benefits = [
     },
     {
         id: 'yctc',
+        documents: ["tax_return","proof_income","child_info"],
         verified: '2026-07-23',
         name: 'Young Child Tax Credit (YCTC)',
         category: 'tax',
@@ -1443,6 +1523,7 @@ const benefits = [
     },
     {
         id: 'fytc',
+        documents: ["tax_return","proof_income"],
         verified: '2026-07-23',
         name: 'Foster Youth Tax Credit (FYTC)',
         category: 'tax',
@@ -1461,6 +1542,7 @@ const benefits = [
     },
     {
         id: 'ctc',
+        documents: ["tax_return","child_info","ssn"],
         verified: '2026-07-23',
         name: 'Child Tax Credit (CTC)',
         category: 'tax',
@@ -1478,6 +1560,7 @@ const benefits = [
     },
     {
         id: 'renters-credit',
+        documents: ["tax_return","lease","proof_income"],
         verified: '2026-07-23',
         name: 'California Nonrefundable Renter\'s Credit',
         category: 'tax',
@@ -1496,6 +1579,7 @@ const benefits = [
     },
     {
         id: 'child-dependent-care-credit',
+        documents: ["tax_return","child_info","proof_income"],
         verified: '2026-07-23',
         name: 'Child and Dependent Care Credit',
         category: 'tax',
@@ -1513,6 +1597,7 @@ const benefits = [
     },
     {
         id: 'savers-credit',
+        documents: ["tax_return","proof_income","bank_statements"],
         verified: '2026-07-23',
         name: 'Saver\'s Credit (Retirement Savings Contributions Credit)',
         category: 'tax',
@@ -1530,6 +1615,7 @@ const benefits = [
     },
     {
         id: 'aotc',
+        documents: ["tax_return","school_enrollment"],
         verified: '2026-07-23',
         name: 'American Opportunity Tax Credit (AOTC)',
         category: 'education',
@@ -1549,6 +1635,7 @@ const benefits = [
     // ========== DISABILITY & DEVELOPMENTAL SERVICES ==========
     {
         id: 'regional-center',
+        documents: ["medical_records","photo_id","proof_address"],
         verified: '2026-07-23',
         name: 'Regional Center Services (Lanterman Act)',
         category: 'disability',
@@ -1566,6 +1653,7 @@ const benefits = [
     },
     {
         id: 'early-start',
+        documents: ["medical_records","child_info","birth_certificate"],
         verified: '2026-07-23',
         name: 'Early Start (Early Intervention)',
         category: 'disability',
@@ -1583,6 +1671,7 @@ const benefits = [
     },
     {
         id: 'dor-vr',
+        documents: ["medical_records","photo_id","benefit_proof"],
         verified: '2026-07-23',
         name: 'Vocational Rehabilitation (Dept. of Rehabilitation)',
         category: 'disability',
@@ -1600,6 +1689,7 @@ const benefits = [
     },
     {
         id: 'calable',
+        documents: ["medical_records","photo_id","ssn"],
         verified: '2026-07-23',
         name: 'CalABLE Savings Accounts',
         category: 'disability',
@@ -1616,6 +1706,7 @@ const benefits = [
     },
     {
         id: 'ticket-to-work',
+        documents: ["benefit_proof","photo_id","medical_records"],
         verified: '2026-07-23',
         name: 'Ticket to Work',
         category: 'employment',
@@ -1632,6 +1723,7 @@ const benefits = [
     },
     {
         id: 'home-safe',
+        documents: ["photo_id","proof_address","medical_records"],
         verified: '2026-07-23',
         name: 'Home Safe Program',
         category: 'housing',
@@ -1650,6 +1742,7 @@ const benefits = [
     },
     {
         id: 'aps',
+        documents: [],
         verified: '2026-07-23',
         name: 'Adult Protective Services (APS)',
         category: 'seniors',
@@ -1667,6 +1760,7 @@ const benefits = [
     },
     {
         id: 'hicap',
+        documents: [],
         verified: '2026-07-23',
         name: 'HICAP (Medicare Counseling)',
         category: 'seniors',
@@ -1686,6 +1780,7 @@ const benefits = [
     // ========== VETERANS ==========
     {
         id: 'hud-vash',
+        documents: ["dd214","photo_id","proof_income"],
         verified: '2026-07-23',
         name: 'HUD-VASH (Veteran Supportive Housing)',
         category: 'veterans',
@@ -1703,6 +1798,7 @@ const benefits = [
     },
     {
         id: 'ssvf',
+        documents: ["dd214","proof_income","proof_address"],
         verified: '2026-07-23',
         name: 'Supportive Services for Veteran Families (SSVF)',
         category: 'veterans',
@@ -1720,6 +1816,7 @@ const benefits = [
     },
     {
         id: 'calvet-home-loan',
+        documents: ["dd214","proof_income","bank_statements"],
         verified: '2026-07-23',
         name: 'CalVet Home Loan',
         category: 'veterans',
@@ -1737,6 +1834,7 @@ const benefits = [
     },
     {
         id: 'vre-ch31',
+        documents: ["dd214","medical_records","photo_id"],
         verified: '2026-07-23',
         name: 'Veteran Readiness and Employment (Chapter 31)',
         category: 'veterans',
@@ -1754,6 +1852,7 @@ const benefits = [
     },
     {
         id: 'calvet-veterans-homes',
+        documents: ["dd214","medical_records","photo_id"],
         verified: '2026-07-23',
         name: 'Veterans Homes of California',
         category: 'veterans',
@@ -1771,6 +1870,7 @@ const benefits = [
     },
     {
         id: 'dic',
+        documents: ["marriage_certificate","birth_certificate","dd214"],
         verified: '2026-07-23',
         name: 'Dependency and Indemnity Compensation (DIC)',
         category: 'veterans',
@@ -1787,6 +1887,7 @@ const benefits = [
     },
     {
         id: 'champva',
+        documents: ["marriage_certificate","birth_certificate","dd214"],
         verified: '2026-07-23',
         name: 'CHAMPVA (Health Coverage for Dependents)',
         category: 'veterans',
@@ -1803,6 +1904,7 @@ const benefits = [
     },
     {
         id: 'va-aid-attendance',
+        documents: ["dd214","medical_records","proof_income"],
         verified: '2026-07-23',
         name: 'VA Aid and Attendance',
         category: 'veterans',
@@ -1822,6 +1924,7 @@ const benefits = [
     // ========== EDUCATION & YOUTH OPPORTUNITY ==========
     {
         id: 'trio-sss',
+        documents: ["school_enrollment","proof_income"],
         verified: '2026-07-23',
         name: 'TRIO Student Support Services',
         category: 'education',
@@ -1839,6 +1942,7 @@ const benefits = [
     },
     {
         id: 'upward-bound',
+        documents: ["school_enrollment","proof_income"],
         verified: '2026-07-23',
         name: 'Upward Bound (TRIO)',
         category: 'education',
@@ -1856,6 +1960,7 @@ const benefits = [
     },
     {
         id: 'talent-search',
+        documents: ["school_enrollment","proof_income"],
         verified: '2026-07-23',
         name: 'Educational Talent Search (TRIO)',
         category: 'education',
@@ -1873,6 +1978,7 @@ const benefits = [
     },
     {
         id: 'gear-up',
+        documents: ["school_enrollment","child_info","proof_income"],
         verified: '2026-07-23',
         name: 'GEAR UP',
         category: 'education',
@@ -1890,6 +1996,7 @@ const benefits = [
     },
     {
         id: 'americorps',
+        documents: ["photo_id","ssn"],
         verified: '2026-07-23',
         name: 'AmeriCorps',
         category: 'education',
@@ -1904,6 +2011,7 @@ const benefits = [
     },
     {
         id: 'chafee-grant',
+        documents: ["school_enrollment","proof_income"],
         verified: '2026-07-23',
         name: 'California Chafee Grant for Foster Youth',
         category: 'education',
@@ -1921,6 +2029,7 @@ const benefits = [
     },
     {
         id: 'eops',
+        documents: ["school_enrollment","proof_income","proof_address"],
         verified: '2026-07-23',
         name: 'EOPS (Extended Opportunity Programs and Services)',
         category: 'education',
@@ -1939,6 +2048,7 @@ const benefits = [
     },
     {
         id: 'golden-state-teacher',
+        documents: ["school_enrollment","photo_id"],
         verified: '2026-07-23',
         name: 'Golden State Teacher Grant',
         category: 'education',
@@ -1956,6 +2066,7 @@ const benefits = [
     },
     {
         id: 'college-corps',
+        documents: ["school_enrollment","photo_id"],
         verified: '2026-07-23',
         name: '#CaliforniansForAll College Corps',
         category: 'education',
@@ -1973,6 +2084,7 @@ const benefits = [
     },
     {
         id: 'calkids',
+        documents: ["child_info","birth_certificate"],
         verified: '2026-07-23',
         name: 'CalKIDS (College Savings for Kids)',
         category: 'education',
@@ -1992,6 +2104,7 @@ const benefits = [
     // ========== CHILDCARE ==========
     {
         id: 'early-head-start',
+        documents: ["proof_income","child_info","birth_certificate"],
         verified: '2026-07-23',
         name: 'Early Head Start',
         category: 'childcare',
@@ -2009,6 +2122,7 @@ const benefits = [
     },
     {
         id: 'state-preschool',
+        documents: ["proof_income","child_info","proof_address"],
         verified: '2026-07-23',
         name: 'California State Preschool Program',
         category: 'childcare',
@@ -2027,6 +2141,7 @@ const benefits = [
     },
     {
         id: 'child-care-bridge',
+        documents: ["child_info","birth_certificate"],
         verified: '2026-07-23',
         name: 'Emergency Child Care Bridge Program',
         category: 'childcare',
@@ -2046,6 +2161,7 @@ const benefits = [
     // ========== FOOD ==========
     {
         id: 'cacfp',
+        documents: ["proof_income","child_info"],
         verified: '2026-07-23',
         name: 'CACFP (Child & Adult Care Food Program)',
         category: 'food',
@@ -2063,6 +2179,7 @@ const benefits = [
     },
     {
         id: 'tefap',
+        documents: [],
         verified: '2026-07-23',
         name: 'TEFAP (Emergency Food Assistance)',
         category: 'food',
@@ -2079,6 +2196,7 @@ const benefits = [
     },
     {
         id: 'senior-farmers-market',
+        documents: ["photo_id","proof_income","proof_address"],
         verified: '2026-07-23',
         name: 'Senior Farmers\' Market Nutrition Program',
         category: 'food',
@@ -2097,6 +2215,7 @@ const benefits = [
     },
     {
         id: 'wic-fmnp',
+        documents: ["benefit_proof","child_info"],
         verified: '2026-07-23',
         name: 'WIC Farmers\' Market Nutrition Program',
         category: 'food',
@@ -2115,6 +2234,7 @@ const benefits = [
     },
     {
         id: 'market-match',
+        documents: ["benefit_proof"],
         verified: '2026-07-23',
         name: 'CalFresh Market Match',
         category: 'food',
@@ -2134,6 +2254,7 @@ const benefits = [
     // ========== HOUSING ==========
     {
         id: 'fss',
+        documents: ["benefit_proof","proof_income","lease"],
         verified: '2026-07-23',
         name: 'Family Self-Sufficiency (FSS)',
         category: 'housing',
@@ -2151,6 +2272,7 @@ const benefits = [
     },
     {
         id: 'calworks-hsp',
+        documents: ["benefit_proof","child_info","proof_address"],
         verified: '2026-07-23',
         name: 'CalWORKs Housing Support Program',
         category: 'housing',
@@ -2169,6 +2291,7 @@ const benefits = [
     },
     {
         id: 'bringing-families-home',
+        documents: ["child_info","proof_address"],
         verified: '2026-07-23',
         name: 'Bringing Families Home',
         category: 'housing',
@@ -2189,6 +2312,7 @@ const benefits = [
     // ========== UTILITIES ==========
     {
         id: 'esa',
+        documents: ["proof_income","proof_address","benefit_proof"],
         verified: '2026-07-23',
         name: 'Energy Savings Assistance Program (ESA)',
         category: 'utilities',
@@ -2208,6 +2332,7 @@ const benefits = [
     // ========== EMPLOYMENT & TRAINING ==========
     {
         id: 'wioa',
+        documents: ["photo_id","ssn","proof_income"],
         verified: '2026-07-23',
         name: 'WIOA Employment & Training',
         category: 'employment',
@@ -2222,6 +2347,7 @@ const benefits = [
     },
     {
         id: 'scsep',
+        documents: ["photo_id","proof_income","ssn"],
         verified: '2026-07-23',
         name: 'SCSEP (Senior Employment Program)',
         category: 'employment',
@@ -2239,6 +2365,7 @@ const benefits = [
     },
     {
         id: 'ajcc',
+        documents: [],
         verified: '2026-07-23',
         name: 'America\'s Job Center of California (AJCC)',
         category: 'employment',

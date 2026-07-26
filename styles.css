@@ -1012,3 +1012,38 @@ footer {
     .doc-checklist, .card-docs { break-inside: avoid; }
     .doc-checklist { background: none; border: 1px solid #ccc; }
 }
+
+/* ==========================================================================
+   AiduRight wordmark logo (house-A with heart)
+   ========================================================================== */
+.brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Nunito', var(--font-head);
+    font-weight: 800;
+    font-size: 1.95rem;
+    line-height: 1;
+    letter-spacing: -0.01em;
+}
+.logo-a {
+    height: 1.08em;
+    width: auto;
+    flex-shrink: 0;
+    color: #fff;              /* house stroke via currentColor */
+    margin-right: 0.04em;
+    transform: translateY(0.02em);
+}
+.logo-heart { fill: #F08080; }
+.logo-idu   { color: #fff; }
+.logo-right { color: #F08080; }
+
+/* Keep the logo legible when printed on white */
+@media print {
+    .logo-a, .logo-idu { color: var(--teal-dark); }
+    .logo-right { color: #F08080; }
+}

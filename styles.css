@@ -1031,8 +1031,8 @@ footer {
     letter-spacing: -0.01em;
 }
 .logo-a {
+    width: 1.04em;            /* explicit size — avoids mobile Safari width:auto bug */
     height: 1.08em;
-    width: auto;
     flex-shrink: 0;
     color: #fff;              /* house stroke via currentColor */
     margin-right: 0.04em;

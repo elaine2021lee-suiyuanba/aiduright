@@ -211,10 +211,19 @@ header {
     position: relative;
     background: linear-gradient(135deg, var(--teal-bright) 0%, var(--teal) 45%, #0E7490 100%);
     color: #fff;
-    padding: 1.5rem 1.5rem 2.75rem;
-    text-align: center;
+    padding: 1.15rem 1.25rem 2.6rem;
     box-shadow: var(--shadow-sm);
     animation: fade-in-up 0.5s var(--ease) both;
+}
+
+/* Clean one-row header: logo on the left, language switcher on the right */
+.header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    max-width: var(--maxw);
+    margin: 0 auto;
 }
 
 /* Wavy bottom edge on the header */
@@ -802,9 +811,7 @@ footer {
 
 /* ---------- Language switcher ---------- */
 .lang-switcher {
-    position: absolute;
-    top: 0.8rem;
-    right: 0.85rem;
+    flex-shrink: 0;
     display: inline-flex;
     gap: 0.15rem;
     background: rgba(255, 255, 255, 0.16);
@@ -911,9 +918,7 @@ footer {
 
 /* Keep the language switcher from crowding the logo on small screens */
 @media (max-width: 480px) {
-    .brand { font-size: 1.4rem; }
-    header { padding-top: 3rem; }
-    .lang-switcher { top: 0.55rem; right: 0.55rem; }
+    .logo { font-size: 1.7rem; }
     .lang-switcher button { padding: 0.4rem 0.5rem; font-size: 0.75rem; min-height: 38px; }
 }
 
@@ -1031,12 +1036,12 @@ footer {
     letter-spacing: -0.01em;
 }
 .logo-a {
-    width: 1.04em;            /* explicit size — avoids mobile Safari width:auto bug */
-    height: 1.08em;
+    width: 1.12em;            /* explicit size — avoids mobile Safari width:auto bug */
+    height: 1.06em;
     flex-shrink: 0;
     color: #fff;              /* house stroke via currentColor */
-    margin-right: 0.04em;
-    transform: translateY(0.02em);
+    margin-right: 0.05em;
+    transform: translateY(0.03em);
 }
 .logo-heart { fill: #F08080; }
 .logo-idu   { color: #fff; }

@@ -1043,12 +1043,12 @@ footer {
     margin-right: 0.05em;
     transform: translateY(0.03em);
 }
-.logo-heart { fill: #F08080; }
+.logo-heart { fill: #FA8072; }
 .logo-idu   { color: #fff; }
-.logo-right { color: #F08080; }
+.logo-right { color: #FA8072; }
 
 /* Keep the logo legible when printed on white */
 @media print {
     .logo-a, .logo-idu { color: var(--teal-dark); }
-    .logo-right { color: #F08080; }
+    .logo-right { color: #FA8072; }
 }

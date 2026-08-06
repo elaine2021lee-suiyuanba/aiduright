@@ -3,3 +3,8 @@ data-report.md
 
 # local tooling
 node_modules/
+
+# wrangler build cache / local state for the AI worker
+.wrangler/
+worker/.wrangler/
+.dev.vars

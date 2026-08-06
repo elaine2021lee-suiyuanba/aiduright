@@ -28,8 +28,8 @@ const I18N = {
       trust2: 'Your answers stay on your device',
       trust3: 'Covers food, health, housing, cash & more',
       startBtn: 'Get Started',
-      privacyNote: 'No data stored · Nothing leaves your browser',
-      footerPrivacy: 'Private by design — no accounts, no tracking, no data stored.',
+      privacyNote: 'No account · Your answers stay on your device',
+      footerPrivacy: 'Private by design — no accounts, no tracking, and your answers are never stored.',
       footerDisclaimer: 'AiduRight is for informational purposes only and is not an official eligibility determination. Always verify with the official program. Need help now? Call 211.',
       loading: 'Finding programs for you…',
       back: 'Back',
@@ -63,7 +63,20 @@ const I18N = {
       docsCardTitle: 'Documents to prepare',
       docsChecklistTitle: 'Your document checklist',
       docsChecklistLead: 'Gather these once — they cover all your matched programs.',
-      docsNone: 'No documents needed to get started.'
+      docsNone: 'No documents needed to get started.',
+      askAi: 'Need help? Ask AI',
+      aiTitle: 'Ask AI about this question',
+      aiClose: 'Close chat',
+      aiPrivacy: 'Your questions are sent to our AI assistant. Do not share personal information like SSN or income.',
+      aiIntro: "Hi! Ask me anything about this question — what a word means, what counts, or which documents you'll need.",
+      aiPlaceholder: 'Type your question…',
+      aiSend: 'Send',
+      aiThinking: 'Thinking…',
+      aiDisclaimer: 'AI answers can be wrong. Always confirm with the official program or call 211.',
+      aiError: "Something went wrong and I couldn't answer. Please try again.",
+      aiErrorBusy: "A lot of people are asking right now. Please wait a moment and try again.",
+      aiErrorOffline: "I can't reach the assistant. Please check your connection and try again.",
+      aiErrorRefusal: "I can't help with that one. Try rephrasing, or call 211 to speak with someone."
     },
     es: {
       tagline: 'Encuentra beneficios del gobierno para los que califiques',
@@ -74,8 +87,8 @@ const I18N = {
       trust2: 'Tus respuestas se quedan en tu dispositivo',
       trust3: 'Cubre comida, salud, vivienda, dinero y más',
       startBtn: 'Comenzar',
-      privacyNote: 'No se guardan datos · Nada sale de tu navegador',
-      footerPrivacy: 'Privado por diseño: sin cuentas, sin rastreo, sin datos guardados.',
+      privacyNote: 'Sin cuenta · Tus respuestas se quedan en tu dispositivo',
+      footerPrivacy: 'Privado por diseño: sin cuentas, sin rastreo y tus respuestas nunca se guardan.',
       footerDisclaimer: 'AiduRight es solo informativo y no es una determinación oficial de elegibilidad. Verifica siempre con el programa oficial. ¿Necesitas ayuda ahora? Llama al 211.',
       loading: 'Buscando programas para ti…',
       back: 'Atrás',
@@ -109,7 +122,20 @@ const I18N = {
       docsCardTitle: 'Documentos que necesitas',
       docsChecklistTitle: 'Tu lista de documentos',
       docsChecklistLead: 'Reúnelos una vez: cubren todos tus programas.',
-      docsNone: 'No necesitas documentos para empezar.'
+      docsNone: 'No necesitas documentos para empezar.',
+      askAi: '¿Necesitas ayuda? Pregunta a la IA',
+      aiTitle: 'Pregunta a la IA sobre esta pregunta',
+      aiClose: 'Cerrar el chat',
+      aiPrivacy: 'Tus preguntas se envían a nuestro asistente de IA. No compartas información personal como tu número de Seguro Social o tus ingresos.',
+      aiIntro: '¡Hola! Pregúntame lo que quieras sobre esta pregunta: qué significa una palabra, qué cuenta o qué documentos vas a necesitar.',
+      aiPlaceholder: 'Escribe tu pregunta…',
+      aiSend: 'Enviar',
+      aiThinking: 'Pensando…',
+      aiDisclaimer: 'Las respuestas de la IA pueden estar equivocadas. Confirma siempre con el programa oficial o llama al 211.',
+      aiError: 'Algo salió mal y no pude responder. Inténtalo de nuevo.',
+      aiErrorBusy: 'Mucha gente está preguntando ahora mismo. Espera un momento e inténtalo de nuevo.',
+      aiErrorOffline: 'No puedo conectarme al asistente. Revisa tu conexión e inténtalo de nuevo.',
+      aiErrorRefusal: 'Con eso no puedo ayudarte. Intenta preguntarlo de otra forma o llama al 211 para hablar con una persona.'
     },
     zh: {
       tagline: '找到你符合条件的政府福利',
@@ -120,8 +146,8 @@ const I18N = {
       trust2: '你的回答只留在本机',
       trust3: '涵盖食物、医疗、住房、现金等',
       startBtn: '开始',
-      privacyNote: '不保存数据 · 不离开你的浏览器',
-      footerPrivacy: '隐私优先 —— 无账号、无追踪、不保存数据。',
+      privacyNote: '无需账号 · 你的答案留在你的设备上',
+      footerPrivacy: '隐私优先 —— 无账号、无追踪,你的答案绝不会被保存。',
       footerDisclaimer: 'AiduRight 仅供参考,不构成官方资格认定。请务必与官方项目核实。需要帮助?拨打 211。',
       loading: '正在为你查找项目…',
       back: '返回',
@@ -155,7 +181,20 @@ const I18N = {
       docsCardTitle: '需要准备的材料',
       docsChecklistTitle: '你的材料清单',
       docsChecklistLead: '备齐这些即可 —— 覆盖你匹配到的所有项目。',
-      docsNone: '无需材料即可开始。'
+      docsNone: '无需材料即可开始。',
+      askAi: '需要帮助?问 AI',
+      aiTitle: '就这个问题询问 AI',
+      aiClose: '关闭对话',
+      aiPrivacy: '你的问题会发送给我们的 AI 助手。请不要提供社会安全号码、收入等个人信息。',
+      aiIntro: '你好!关于这个问题,你可以问我任何事 —— 某个词是什么意思、哪些情况算在内,或者你需要准备哪些材料。',
+      aiPlaceholder: '输入你的问题…',
+      aiSend: '发送',
+      aiThinking: '正在思考…',
+      aiDisclaimer: 'AI 的回答可能有误。请务必向官方项目确认,或致电 211。',
+      aiError: '出现了问题,无法回答。请再试一次。',
+      aiErrorBusy: '目前提问的人较多。请稍等一下再试。',
+      aiErrorOffline: '无法连接到助手。请检查网络后再试。',
+      aiErrorRefusal: '这个问题我帮不上忙。可以换个说法再问,或致电 211 与工作人员沟通。'
     }
   },
 
@@ -396,6 +435,12 @@ function applyStaticTranslations() {
   document.documentElement.lang = currentLang;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  document.querySelectorAll('[data-i18n-label]').forEach(el => {
+    el.setAttribute('aria-label', t(el.dataset.i18nLabel));
   });
   // Reflect active language button
   document.querySelectorAll('[data-lang]').forEach(btn => {

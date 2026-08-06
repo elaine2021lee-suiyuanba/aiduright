@@ -107,7 +107,7 @@
             </ul>
             <button id="start-btn" class="btn-primary" data-i18n="startBtn">Get Started</button>
             <p class="privacy-note">
-                <span aria-hidden="true">🔒</span> <span data-i18n="privacyNote">No data stored · Nothing leaves your browser</span>
+                <span aria-hidden="true">🔒</span> <span data-i18n="privacyNote">No account · Your answers stay on your device</span>
             </p>
         </section>
 
@@ -139,6 +139,41 @@
         </section>
     </main>
 
+    <!-- AI assistant chat. Hidden until a question's "Ask AI" link is used. -->
+    <div id="ai-modal" class="ai-modal" hidden>
+        <div class="ai-backdrop" data-ai-close></div>
+        <div class="ai-panel" role="dialog" aria-modal="true" aria-labelledby="ai-title">
+            <header class="ai-header">
+                <h2 id="ai-title" data-i18n="aiTitle">Ask AI about this question</h2>
+                <button type="button" class="ai-close" data-ai-close data-i18n-label="aiClose" aria-label="Close chat">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M6 6 L18 18 M18 6 L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                    </svg>
+                </button>
+            </header>
+
+            <p class="ai-privacy">
+                <span aria-hidden="true">🔒</span>
+                <span data-i18n="aiPrivacy">Your questions are sent to our AI assistant. Do not share personal information like SSN or income.</span>
+            </p>
+
+            <div class="ai-log" id="ai-log" role="log" aria-live="polite"></div>
+
+            <form class="ai-form" id="ai-form">
+                <label class="sr-only" for="ai-input" data-i18n="aiPlaceholder">Type your question…</label>
+                <textarea id="ai-input" rows="1" maxlength="2000" autocomplete="off"
+                          data-i18n-placeholder="aiPlaceholder" placeholder="Type your question…"></textarea>
+                <button type="submit" class="ai-send" data-i18n-label="aiSend" aria-label="Send">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M4 12 L20 4 L13 20 L11 13 Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </form>
+
+            <p class="ai-disclaimer" data-i18n="aiDisclaimer">AI answers can be wrong. Always confirm with the official program or call 211.</p>
+        </div>
+    </div>
+
     <div class="footer-wave" aria-hidden="true">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
             <defs>
@@ -153,7 +188,7 @@
 
     <footer>
         <p class="privacy-note footer-privacy">
-            <span aria-hidden="true">🔒</span> <span data-i18n="footerPrivacy">Private by design — no accounts, no tracking, no data stored.</span>
+            <span aria-hidden="true">🔒</span> <span data-i18n="footerPrivacy">Private by design — no accounts, no tracking, and your answers are never stored.</span>
         </p>
         <p data-i18n="footerDisclaimer">AiduRight is for informational purposes only and is not an official eligibility determination. Always verify with the official program. Need help now? Call 211.</p>
     </footer>
@@ -164,5 +199,6 @@
     <script src="benefits.i18n.js"></script>
     <script src="i18n.js"></script>
     <script src="app.js"></script>
+    <script src="chat.js"></script>
 </body>
 </html>

@@ -531,6 +531,13 @@ function renderQuestion() {
     });
 
     html += '</div>';
+
+    // Escape hatch for anyone stuck on the wording of this question.
+    html += `<button type="button" class="ask-ai-link" id="ask-ai-btn">`
+        + `<span class="ask-ai-icon" aria-hidden="true">💬</span>`
+        + `<span>${esc(t('askAi'))}</span>`
+        + `</button>`;
+
     questionContainer.innerHTML = html;
 
     // Re-trigger the slide/fade transition in the current direction
@@ -542,6 +549,19 @@ function renderQuestion() {
     document.querySelectorAll('.option').forEach(opt => {
         opt.addEventListener('click', () => selectOption(q, opt.dataset.value));
     });
+
+    // Hand the chat the localized question text, so "what does this mean?" resolves
+    const askAiBtn = document.getElementById('ask-ai-btn');
+    if (askAiBtn) {
+        askAiBtn.addEventListener('click', () => {
+            if (typeof window.openAiChat !== 'function') return;
+            window.openAiChat({
+                id: q.id,
+                text: tQuestionText(q),
+                options: q.options.map(opt => tOptionLabel(q.id, opt.value, opt.label))
+            });
+        });
+    }
 
     // Update navigation buttons
     backBtn.style.display = currentQuestion === 0 ? 'none' : 'block';

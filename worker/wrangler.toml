@@ -1,0 +1,22 @@
+name = "aiduright-ai"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+
+# Publish to https://aiduright-ai.aiduright.workers.dev
+workers_dev = true
+
+[vars]
+# Origins allowed to call this Worker. Leave empty for local development —
+# an empty allowlist accepts any origin, which is fine on localhost and
+# unsafe in production. Set this before you deploy.
+ALLOWED_ORIGINS = "https://elaine2021lee-suiyuanba.github.io"
+
+# ANTHROPIC_API_KEY is a secret, not a var. Never put it in this file:
+#   wrangler secret put ANTHROPIC_API_KEY
+
+# Per-IP rate limiting. Created with:
+#   wrangler kv namespace create AIDURIGHT_RATE_LIMIT
+# The binding name must stay RATE_LIMIT_KV — that is what src/index.js reads.
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "0b4bc54b104a47e9927a0b5f0f8a425e"

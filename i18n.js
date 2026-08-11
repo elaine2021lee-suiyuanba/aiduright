@@ -76,7 +76,10 @@ const I18N = {
       aiError: "Something went wrong and I couldn't answer. Please try again.",
       aiErrorBusy: "A lot of people are asking right now. Please wait a moment and try again.",
       aiErrorOffline: "I can't reach the assistant. Please check your connection and try again.",
-      aiErrorRefusal: "I can't help with that one. Try rephrasing, or call 211 to speak with someone."
+      aiErrorRefusal: "I can't help with that one. Try rephrasing, or call 211 to speak with someone.",
+      aiErrorTooLong: "This chat is getting long. Close it and open a new one to keep going.",
+      aiErrorMessageTooLong: 'That question is too long. Try asking it in fewer words.',
+      aiTruncated: "That answer got cut off. Ask me to continue, or ask about one part at a time."
     },
     es: {
       tagline: 'Encuentra beneficios del gobierno para los que califiques',
@@ -135,7 +138,10 @@ const I18N = {
       aiError: 'Algo salió mal y no pude responder. Inténtalo de nuevo.',
       aiErrorBusy: 'Mucha gente está preguntando ahora mismo. Espera un momento e inténtalo de nuevo.',
       aiErrorOffline: 'No puedo conectarme al asistente. Revisa tu conexión e inténtalo de nuevo.',
-      aiErrorRefusal: 'Con eso no puedo ayudarte. Intenta preguntarlo de otra forma o llama al 211 para hablar con una persona.'
+      aiErrorRefusal: 'Con eso no puedo ayudarte. Intenta preguntarlo de otra forma o llama al 211 para hablar con una persona.',
+      aiErrorTooLong: 'Esta conversación ya es muy larga. Ciérrala y abre una nueva para seguir.',
+      aiErrorMessageTooLong: 'Esa pregunta es demasiado larga. Intenta hacerla con menos palabras.',
+      aiTruncated: 'Esa respuesta quedó cortada. Pídeme que continúe o pregúntame por una parte a la vez.'
     },
     zh: {
       tagline: '找到你符合条件的政府福利',
@@ -194,7 +200,10 @@ const I18N = {
       aiError: '出现了问题,无法回答。请再试一次。',
       aiErrorBusy: '目前提问的人较多。请稍等一下再试。',
       aiErrorOffline: '无法连接到助手。请检查网络后再试。',
-      aiErrorRefusal: '这个问题我帮不上忙。可以换个说法再问,或致电 211 与工作人员沟通。'
+      aiErrorRefusal: '这个问题我帮不上忙。可以换个说法再问,或致电 211 与工作人员沟通。',
+      aiErrorTooLong: '这次对话已经很长了。关掉再重新打开,就可以继续提问。',
+      aiErrorMessageTooLong: '这个问题太长了。可以试着说得简短一些。',
+      aiTruncated: '这个回答没有说完。可以让我接着说,或者一次只问其中一部分。'
     }
   },
 

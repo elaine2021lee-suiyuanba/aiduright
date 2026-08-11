@@ -107,17 +107,23 @@ async function overRateLimit(request, env) {
 
 // ---------------------------------------------------------------- validation
 
+// Returns null when the body is usable, otherwise { code, message }. `code` is
+// what the browser branches on — the site is multilingual, so the English
+// `message` is for logs and non-browser callers only. Codes are shared with the
+// stream's error events so the client has one vocabulary to map from.
 function validate(body) {
-	if (!body || typeof body !== 'object') return 'Malformed request body.';
+	const invalid = (code, message) => ({ code, message });
+
+	if (!body || typeof body !== 'object') return invalid('invalid', 'Malformed request body.');
 	const { messages } = body;
-	if (!Array.isArray(messages) || messages.length === 0) return 'No messages provided.';
-	if (messages.length > MAX_TURNS) return 'This conversation is too long. Please start a new one.';
+	if (!Array.isArray(messages) || messages.length === 0) return invalid('invalid', 'No messages provided.');
+	if (messages.length > MAX_TURNS) return invalid('too_long', 'This conversation is too long. Please start a new one.');
 	for (const m of messages) {
-		if (!m || (m.role !== 'user' && m.role !== 'assistant')) return 'Invalid message role.';
-		if (typeof m.content !== 'string' || m.content.trim() === '') return 'Empty message.';
-		if (m.content.length > MAX_CHARS) return 'That message is too long.';
+		if (!m || (m.role !== 'user' && m.role !== 'assistant')) return invalid('invalid', 'Invalid message role.');
+		if (typeof m.content !== 'string' || m.content.trim() === '') return invalid('invalid', 'Empty message.');
+		if (m.content.length > MAX_CHARS) return invalid('message_too_long', 'That message is too long.');
 	}
-	if (messages[messages.length - 1].role !== 'user') return 'Last message must be from the user.';
+	if (messages[messages.length - 1].role !== 'user') return invalid('invalid', 'Last message must be from the user.');
 	return null;
 }
 
@@ -154,17 +160,17 @@ export default {
 			return new Response(null, { status: 204, headers: cors });
 		}
 		if (request.method !== 'POST') {
-			return json({ error: 'Method not allowed.' }, 405, cors);
+			return json({ error: 'Method not allowed.', code: 'invalid' }, 405, cors);
 		}
 		if (!isOriginAllowed(request, env)) {
-			return json({ error: 'Origin not allowed.' }, 403, cors);
+			return json({ error: 'Origin not allowed.', code: 'invalid' }, 403, cors);
 		}
 		if (!env.ANTHROPIC_API_KEY) {
 			console.error('ANTHROPIC_API_KEY is not configured on this Worker.');
-			return json({ error: 'The assistant is not configured yet.' }, 500, cors);
+			return json({ error: 'The assistant is not configured yet.', code: 'failed' }, 500, cors);
 		}
 		if (await overRateLimit(request, env)) {
-			return json({ error: 'Too many questions in a short time. Please wait a minute.' }, 429, {
+			return json({ error: 'Too many questions in a short time. Please wait a minute.', code: 'busy' }, 429, {
 				...cors,
 				'Retry-After': String(RATE_WINDOW),
 			});
@@ -174,11 +180,11 @@ export default {
 		try {
 			body = await request.json();
 		} catch {
-			return json({ error: 'Malformed request body.' }, 400, cors);
+			return json({ error: 'Malformed request body.', code: 'invalid' }, 400, cors);
 		}
 
 		const invalid = validate(body);
-		if (invalid) return json({ error: invalid }, 400, cors);
+		if (invalid) return json({ error: invalid.message, code: invalid.code }, 400, cors);
 
 		const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
 		const messages = body.messages.map((m) => ({ role: m.role, content: m.content }));

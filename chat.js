@@ -73,6 +73,20 @@
 
     // ---------------------------------------------------------------- network
 
+    // Both the Worker's error responses and its stream error events carry a
+    // `code`; the human-readable text alongside it is English-only, so the code
+    // is what we translate. Falls back to the HTTP status for responses that
+    // never reached the Worker (a Cloudflare error page, say).
+    function errorKey(code, status) {
+        switch (code) {
+            case 'too_long': return 'aiErrorTooLong';
+            case 'message_too_long': return 'aiErrorMessageTooLong';
+            case 'busy': return 'aiErrorBusy';
+            case 'refusal': return 'aiErrorRefusal';
+        }
+        return status === 429 ? 'aiErrorBusy' : 'aiError';
+    }
+
     async function ask(text) {
         history.push({ role: 'user', content: text });
         addBubble('user', text);
@@ -84,6 +98,7 @@
 
         let answer = '';
         let failure = null;
+        let truncated = false;
 
         try {
             const res = await fetch(ENDPOINT, {
@@ -97,7 +112,8 @@
             });
 
             if (!res.ok) {
-                failure = res.status === 429 ? 'aiErrorBusy' : 'aiError';
+                const body = await res.json().catch(() => null);
+                failure = errorKey(body && body.code, res.status);
             } else {
                 // Newline-delimited JSON: {type:'delta'|'done'|'error', …}
                 const reader = res.body.getReader();
@@ -124,10 +140,11 @@
                             answer += event.text;
                             pending.textContent = clean(answer);
                             scrollToEnd();
+                        } else if (event.type === 'done') {
+                            // The reply hit the model's output cap mid-sentence.
+                            truncated = Boolean(event.truncated);
                         } else if (event.type === 'error') {
-                            failure = event.code === 'busy' ? 'aiErrorBusy'
-                                : event.code === 'refusal' ? 'aiErrorRefusal'
-                                : 'aiError';
+                            failure = errorKey(event.code);
                         }
                     }
                 }
@@ -141,11 +158,15 @@
 
         if (answer) {
             history.push({ role: 'assistant', content: answer });
+            if (truncated) addNotice('aiTruncated');
         } else {
             pending.remove();
             // The failed turn is dropped so a retry doesn't resend a dangling
             // user message the model never answered.
             history.pop();
+            // Nothing came back and nothing said why — don't leave the question
+            // sitting there with no response at all.
+            if (!failure) failure = 'aiError';
         }
         if (failure) addNotice(failure);
 

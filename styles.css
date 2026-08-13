@@ -1264,6 +1264,54 @@ body.ai-open { overflow: hidden; }
 }
 
 /* ---------- Composer ---------- */
+/* Photos staged for the next message, above the composer. */
+.ai-attachments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding: 0.75rem 1.25rem 0;
+    flex-shrink: 0;
+}
+.ai-thumb {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1.5px solid var(--line);
+    background: var(--bg);
+}
+.ai-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ai-thumb button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.ai-thumb button:hover { background: rgba(0, 0, 0, 0.8); }
+.ai-thumb button:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
+
+/* Sits with the thumbnails, so the SSN warning is in view exactly when a
+   photo is staged — not only in the header the user scrolled past. */
+.ai-photo-reminder {
+    width: 100%;
+    margin: 0;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+}
+
 .ai-form {
     display: flex;
     align-items: flex-end;
@@ -1294,6 +1342,47 @@ body.ai-open { overflow: hidden; }
     box-shadow: 0 0 0 3px var(--teal-ring);
 }
 .ai-form textarea:disabled { opacity: 0.6; }
+
+.ai-attach {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1.5px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color var(--t), border-color var(--t), background var(--t);
+}
+.ai-attach:hover:not(:disabled) {
+    color: var(--teal);
+    border-color: var(--teal);
+    background: var(--teal-ring);
+}
+.ai-attach:focus-visible {
+    outline: 3px solid var(--teal-ring);
+    outline-offset: 2px;
+}
+.ai-attach:disabled { opacity: 0.45; cursor: default; }
+.ai-attach svg { width: 21px; height: 21px; }
+
+/* Photos already sent, inside the user's own bubble. */
+.ai-msg-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.45rem;
+}
+.ai-msg-images img {
+    width: 116px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    display: block;
+}
 
 .ai-send {
     display: grid;
@@ -1337,7 +1426,7 @@ body.ai-open { overflow: hidden; }
 }
 
 @media (max-width: 480px) {
-    .ai-header, .ai-privacy, .ai-log, .ai-form { padding-left: 1rem; padding-right: 1rem; }
+    .ai-header, .ai-privacy, .ai-log, .ai-form, .ai-attachments { padding-left: 1rem; padding-right: 1rem; }
     .ai-disclaimer { padding-left: 1rem; padding-right: 1rem; }
     .ai-msg { max-width: 92%; }
 }

@@ -9,7 +9,7 @@ workers_dev = true
 # Origins allowed to call this Worker. Leave empty for local development —
 # an empty allowlist accepts any origin, which is fine on localhost and
 # unsafe in production. Set this before you deploy.
-ALLOWED_ORIGINS = "https://elaine2021lee-suiyuanba.github.io"
+ALLOWED_ORIGINS = "https://aiduright.com,https://www.aiduright.com,https://elaine2021lee-suiyuanba.github.io"
 
 # ANTHROPIC_API_KEY is a secret, not a var. Never put it in this file:
 #   wrangler secret put ANTHROPIC_API_KEY

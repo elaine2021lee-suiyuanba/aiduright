@@ -20,6 +20,7 @@ const I18N = {
 
   ui: {
     en: {
+      skipLink: 'Skip to content',
       tagline: 'Find government benefits you qualify for',
       introBadge: 'Free & private · No account needed',
       introTitle: 'Get matched to benefits in minutes',
@@ -91,6 +92,7 @@ const I18N = {
       aiTruncated: "That answer got cut off. Ask me to continue, or ask about one part at a time."
     },
     es: {
+      skipLink: 'Saltar al contenido',
       tagline: 'Encuentra beneficios del gobierno para los que califiques',
       introBadge: 'Gratis y privado · Sin cuenta',
       introTitle: 'Encuentra beneficios en minutos',
@@ -162,6 +164,7 @@ const I18N = {
       aiTruncated: 'Esa respuesta quedó cortada. Pídeme que continúe o pregúntame por una parte a la vez.'
     },
     zh: {
+      skipLink: '跳到主要内容',
       tagline: '找到你符合条件的政府福利',
       introBadge: '免费 · 隐私 · 无需账号',
       introTitle: '几分钟找到适合你的福利',

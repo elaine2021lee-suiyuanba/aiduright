@@ -219,6 +219,39 @@ function buildContext(body) {
 	return lines.join('\n');
 }
 
+// ---------------------------------------------------------------- usage log
+
+// One line per answered question, so the cost of running this is something you
+// can look at instead of infer from a monthly total. Read it with
+// `wrangler tail`, or turn on Workers Logs to keep a history.
+//
+// Numbers only. No question text, no image data, no IP — the point is to see
+// what the site costs, not what anyone asked. `cached` is the line to watch:
+// if it stays at 0 on follow-up turns, prompt caching isn't working and photo
+// conversations are being paid for at full price every time.
+function logUsage(final, body, messages, startedAt) {
+	const u = final.usage || {};
+	const images = body.messages.reduce(
+		(n, m) => n + (Array.isArray(m.content) ? m.content.filter((b) => b && b.type === 'image').length : 0),
+		0
+	);
+	console.log(
+		JSON.stringify({
+			kind: 'usage',
+			model: final.model,
+			in: u.input_tokens ?? 0,
+			out: u.output_tokens ?? 0,
+			cached: u.cache_read_input_tokens ?? 0,
+			cache_write: u.cache_creation_input_tokens ?? 0,
+			images,
+			turns: messages.length,
+			lang: LANG_NAMES[body.lang] ? body.lang : 'en',
+			stop: final.stop_reason,
+			ms: Date.now() - startedAt,
+		})
+	);
+}
+
 // ---------------------------------------------------------------- handler
 
 export default {
@@ -255,6 +288,7 @@ export default {
 		const invalid = validate(body);
 		if (invalid) return json({ error: invalid.message, code: invalid.code }, 400, cors);
 
+		const startedAt = Date.now();
 		const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
 		const messages = cacheThroughLastTurn(body.messages.map((m) => ({ role: m.role, content: m.content })));
 
@@ -288,6 +322,7 @@ export default {
 					}
 
 					const final = await claude.finalMessage();
+					logUsage(final, body, messages, startedAt);
 					if (final.stop_reason === 'refusal') {
 						send({ type: 'error', code: 'refusal' });
 					} else {

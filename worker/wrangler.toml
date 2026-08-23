@@ -20,3 +20,11 @@ ALLOWED_ORIGINS = "https://aiduright.com,https://www.aiduright.com,https://elain
 [[kv_namespaces]]
 binding = "RATE_LIMIT_KV"
 id = "0b4bc54b104a47e9927a0b5f0f8a425e"
+
+# Keeps the per-request usage lines from src/index.js instead of only
+# streaming them to whoever happens to be running `wrangler tail`. Without
+# this the cost of running the assistant is unobservable after the fact.
+# View them: Cloudflare dashboard -> Workers & Pages -> aiduright-ai -> Logs.
+[observability]
+enabled = true
+head_sampling_rate = 1

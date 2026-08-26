@@ -311,7 +311,7 @@
     // ---------------------------------------------------------------- open/close
 
     // Maintenance mode - set to true to disable AI chat
-    const MAINTENANCE_MODE = true;
+    const MAINTENANCE_MODE = false;
 
     function open(q) {
         question = q || null;

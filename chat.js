@@ -310,12 +310,30 @@
 
     // ---------------------------------------------------------------- open/close
 
+    // Maintenance mode - set to true to disable AI chat
+    const MAINTENANCE_MODE = true;
+
     function open(q) {
         question = q || null;
         history = [];
         pendingImages = [];
         renderAttachments();
         log.innerHTML = '';
+
+        if (MAINTENANCE_MODE) {
+            addBubble('assistant', t('aiMaintenance'));
+            lastFocused = document.activeElement;
+            modal.hidden = false;
+            document.body.classList.add('ai-open');
+            // Disable input during maintenance
+            input.disabled = true;
+            input.placeholder = t('aiMaintenancePlaceholder');
+            sendBtn.disabled = true;
+            photoBtn.disabled = true;
+            cameraBtn.disabled = true;
+            return;
+        }
+
         addBubble('assistant', t('aiIntro'));
 
         lastFocused = document.activeElement;

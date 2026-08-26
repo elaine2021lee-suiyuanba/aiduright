@@ -305,9 +305,6 @@ export default {
 						// avoids the reasoning-leak that thinking:disabled can cause.
 						thinking: { type: 'adaptive' },
 						output_config: { effort: 'low' },
-						// Re-serve on the rare policy decline instead of dead-ending.
-						betas: ['server-side-fallback-2026-07-01'],
-						fallbacks: 'default',
 						system: [
 							{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } },
 							{ type: 'text', text: buildContext(body) },

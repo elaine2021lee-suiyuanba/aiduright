@@ -11,7 +11,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 
-const MODEL = 'claude-opus-5';
+const MODEL = 'claude-sonnet-4-6';
 
 // Request limits. These bound both abuse and cost.
 const MAX_TURNS = 20;          // messages in one transcript

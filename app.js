@@ -1027,7 +1027,7 @@ function renderResults(matchedBenefits, isDetailed = false, celebrateOnShow = tr
     }
 
     // "Find more" card — only offered once, after the quick scan
-    if (!isDetailed && !basicResultsShown) {
+    if (!isDetailed && (!basicResultsShown || !celebrateOnShow)) {
         basicResultsShown = true;
         html += `<div class="unlock-more-card">
             <div class="unlock-icon" aria-hidden="true">🔍</div>

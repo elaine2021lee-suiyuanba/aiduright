@@ -1020,13 +1020,7 @@ function renderResults(matchedBenefits, isDetailed = false, celebrateOnShow = tr
                         </ol>
                     </details>`;
                 }
-                const docs = Array.isArray(b.documents) ? b.documents : [];
-                if (docs.length) {
-                    html += `<div class="card-docs">
-                        <span class="card-docs-title">${esc(t('docsCardTitle'))}</span>
-                        <ul>${docs.map(k => `<li>${esc(tDoc(k))}</li>`).join('')}</ul>
-                    </div>`;
-                }
+                html += renderNextSteps(b, lb);
                 html += `</div>`;
             });
         }
@@ -1119,12 +1113,55 @@ function renderResults(matchedBenefits, isDetailed = false, celebrateOnShow = tr
     if (celebrateOnShow && matchedBenefits.length > 0) celebrate();
 }
 
+// ---- Next steps (data comes from next-steps.js -> global NEXT_STEPS) ----
+function getNext(id) {
+    return (typeof NEXT_STEPS !== 'undefined' && NEXT_STEPS && NEXT_STEPS[id]) || null;
+}
+
+// Only a safe http(s) URL is ever put in an href
+function safeUrl(u) {
+    return /^https?:\/\//i.test(String(u || '')) ? String(u) : '';
+}
+
+function nextDocs(id) {
+    const n = getNext(id);
+    return n && Array.isArray(n.documents) ? n.documents.filter(k => I18N.documents[k]) : [];
+}
+
+function renderNextSteps(b, lb) {
+    const n = getNext(b.id) || {};
+    const url = safeUrl(n.url);
+    const kind = n.kind === 'apply' || n.kind === 'local' ? n.kind : 'info';
+    const linkLabel = kind === 'apply' ? t('nsApply') : kind === 'local' ? t('nsLocal') : t('nsInfo');
+    const docs = nextDocs(b.id);
+    const source = safeUrl(n.source);
+    const docsLabel = source
+        ? `<a href="${esc(source)}" target="_blank" rel="noopener noreferrer" title="${esc(t('nsDocsSource'))}">${esc(t('nsDocs'))}</a>`
+        : esc(t('nsDocs'));
+    let h = `<div class="next-steps">
+        <span class="card-docs-title">${esc(t('nsTitle'))}</span>`;
+    if (url) {
+        h += `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="ns-primary">${esc(linkLabel)} <span aria-hidden="true">→</span></a>`;
+    }
+    h += `<div class="ns-docs"><span class="ns-docs-label">${docsLabel}</span>`;
+    h += docs.length
+        ? `<ul>${docs.map(k => `<li>${esc(tDoc(k))}</li>`).join('')}</ul>`
+        : `<p class="ns-unknown">${esc(t('nsDocsUnknown'))}</p>`;
+    h += `</div><p class="ns-contact">`;
+    if (n.phone) h += `${esc(t('nsPhone'))}: <a href="tel:${esc(String(n.phone).replace(/[^0-9+]/g, ''))}">${esc(n.phone)}</a> · `;
+    h += `${esc(t('nsHelp'))} <a href="tel:211">${esc(t('nsCall211'))}</a>. ${esc(t('nsLocalText'))}</p>`;
+    h += `<button type="button" class="ns-ask" data-ask-program="${esc(b.id)}">💬 ${esc(t('nsAsk'))}</button></div>`;
+    return h;
+}
+
 // Plain-text summary of matched programs, for copy / share (localized)
 function buildSummary() {
     const lines = [t('summaryTitle'), ''];
     lastMatched.forEach(b => {
         const lb = localizeBenefit(b);
-        lines.push(`• ${lb.name}\n  ${lb.url}`);
+        const n = getNext(b.id);
+        const nu = n && safeUrl(n.url);
+        lines.push(`• ${lb.name}\n  ${lb.url}` + (nu && nu !== lb.url ? `\n  ${t('nsSummary')}: ${nu}` : '') + (n && n.phone ? `\n  ${t('nsPhone')}: ${n.phone}` : ''));
     });
     const docs = collectDocs(lastMatched);
     if (docs.length) {
@@ -1139,7 +1176,7 @@ function buildSummary() {
 function collectDocs(list) {
     const order = Object.keys(I18N.documents);
     const seen = new Set();
-    list.forEach(b => (b.documents || []).forEach(k => seen.add(k)));
+    list.forEach(b => nextDocs(b.id).forEach(k => seen.add(k)));
     return order.filter(k => seen.has(k));
 }
 
@@ -1195,6 +1232,15 @@ nextBtn.addEventListener('click', () => {
             showScreen('results');
         }, 1000);
     }
+});
+
+// "Ask Aidu how to apply": opens the chat prefilled, never auto-sent
+document.addEventListener('click', e => {
+    const btn = e.target.closest && e.target.closest('[data-ask-program]');
+    if (!btn || typeof window.openAiChat !== 'function') return;
+    const b = benefits.find(x => x.id === btn.dataset.askProgram);
+    if (!b) return;
+    window.openAiChat(null, { prefill: t('nsQuestion').replace('{name}', localizeBenefit(b).name), program: true });
 });
 
 // Called by i18n.js when the language changes: re-render whatever's on screen

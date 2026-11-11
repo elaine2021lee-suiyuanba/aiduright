@@ -1435,3 +1435,17 @@ body.ai-open { overflow: hidden; }
 @media print {
     .ai-modal, .ask-ai-link { display: none !important; }
 }
+
+/* Per-card next steps */
+.next-steps { margin-top: 0.6rem; padding-top: 0.75rem; border-top: 1px solid var(--line); }
+.ns-primary { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; padding: 0 1rem; margin-bottom: 0.5rem; background: var(--teal); color: #fff; border-radius: 10px; font-weight: 700; text-decoration: none; }
+.ns-primary:hover { filter: brightness(0.93); }
+.ns-docs-label { display: block; font-weight: 600; font-size: 0.88rem; color: var(--ink); margin-bottom: 0.3rem; }
+.ns-docs-label a { color: inherit; text-decoration: underline dotted; }
+.ns-docs ul { list-style: none; display: grid; gap: 0.3rem; margin-bottom: 0.5rem; }
+.ns-docs li { position: relative; padding-left: 1.35rem; font-size: 0.92rem; color: var(--ink-soft); }
+.ns-docs li::before { content: '📄'; position: absolute; left: 0; font-size: 0.8rem; }
+.ns-unknown, .ns-contact { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.5rem; }
+.ns-contact a { color: var(--teal); font-weight: 600; }
+.ns-ask { min-height: 44px; padding: 0 1rem; border: 1.5px solid var(--teal); background: transparent; color: var(--teal); border-radius: 10px; font-weight: 700; font: inherit; font-weight: 700; cursor: pointer; }
+.ns-ask:hover { background: var(--teal-tint); }

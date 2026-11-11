@@ -313,8 +313,11 @@
     // Maintenance mode - set to true to disable AI chat
     const MAINTENANCE_MODE = false;
 
-    function open(q) {
+    function open(q, opts) {
+        opts = opts || {};
         question = q || null;
+        const titleEl = document.getElementById('ai-title');
+        if (titleEl) titleEl.textContent = t(opts.program ? 'aiTitleProgram' : 'aiTitle');
         history = [];
         pendingImages = [];
         renderAttachments();
@@ -334,12 +337,12 @@
             return;
         }
 
-        addBubble('assistant', t('aiIntro'));
+        addBubble('assistant', t(opts.program ? 'aiIntroProgram' : 'aiIntro'));
 
         lastFocused = document.activeElement;
         modal.hidden = false;
         document.body.classList.add('ai-open');
-        input.value = '';
+        input.value = opts.prefill ? String(opts.prefill) : '';
         autosize();
         // Defer so the panel is laid out before we move focus into it.
         requestAnimationFrame(() => input.focus());

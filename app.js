@@ -1148,7 +1148,7 @@ function renderNextSteps(b, lb) {
         ? `<ul>${docs.map(k => `<li>${esc(tDoc(k))}</li>`).join('')}</ul>`
         : `<p class="ns-unknown">${esc(t('nsDocsUnknown'))}</p>`;
     h += `</div><p class="ns-contact">`;
-    if (n.phone) h += `${esc(t('nsPhone'))}: <a href="tel:${esc(String(n.phone).replace(/[^0-9+]/g, ''))}">${esc(n.phone)}</a> · `;
+    if (n.phone && String(n.phone).replace(/\D/g, '') !== '211') h += `${esc(t('nsPhone'))}: <a href="tel:${esc(String(n.phone).replace(/[^0-9+]/g, ''))}">${esc(n.phone)}</a> · `;
     h += `${esc(t('nsHelp'))} <a href="tel:211">${esc(t('nsCall211'))}</a>. ${esc(t('nsLocalText'))}</p>`;
     h += `<button type="button" class="ns-ask" data-ask-program="${esc(b.id)}">💬 ${esc(t('nsAsk'))}</button></div>`;
     return h;
@@ -1161,7 +1161,7 @@ function buildSummary() {
         const lb = localizeBenefit(b);
         const n = getNext(b.id);
         const nu = n && safeUrl(n.url);
-        lines.push(`• ${lb.name}\n  ${lb.url}` + (nu && nu !== lb.url ? `\n  ${t('nsSummary')}: ${nu}` : '') + (n && n.phone ? `\n  ${t('nsPhone')}: ${n.phone}` : ''));
+        lines.push(`• ${lb.name}\n  ${lb.url}` + (nu && nu !== lb.url ? `\n  ${t('nsSummary')}: ${nu}` : '') + (n && n.phone && String(n.phone).replace(/\D/g, '') !== '211' ? `\n  ${t('nsPhone')}: ${n.phone}` : ''));
     });
     const docs = collectDocs(lastMatched);
     if (docs.length) {

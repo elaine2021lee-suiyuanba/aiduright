@@ -1449,3 +1449,4 @@ body.ai-open { overflow: hidden; }
 .ns-contact a { color: var(--teal); font-weight: 600; }
 .ns-ask { min-height: 44px; padding: 0 1rem; border: 1.5px solid var(--teal); background: transparent; color: var(--teal); border-radius: 10px; font-weight: 700; font: inherit; font-weight: 700; cursor: pointer; }
 .ns-ask:hover { background: var(--teal-tint); }
+.ns-note { font-size: 0.85rem; color: var(--ink-faint); margin-bottom: 0.4rem; }

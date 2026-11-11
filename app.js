@@ -984,6 +984,7 @@ function renderResults(matchedBenefits, isDetailed = false, celebrateOnShow = tr
             html += `<div class="doc-checklist">
                 <h3><span aria-hidden="true">📋</span> ${esc(t('docsChecklistTitle'))}</h3>
                 <p>${esc(t('docsChecklistLead'))}</p>
+                <p class="ns-note">${esc(t('nsDocsNote'))}</p>
                 <ul class="doc-check-list">
                     ${allDocs.map(k => `<li>
                         <label class="doc-item">
@@ -1144,6 +1145,7 @@ function renderNextSteps(b, lb) {
         h += `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="ns-primary">${esc(linkLabel)} <span aria-hidden="true">→</span></a>`;
     }
     h += `<div class="ns-docs"><span class="ns-docs-label">${docsLabel}</span>`;
+    if (docs.length) h += `<p class="ns-note">${esc(t('nsDocsNote'))}</p>`;
     h += docs.length
         ? `<ul>${docs.map(k => `<li>${esc(tDoc(k))}</li>`).join('')}</ul>`
         : `<p class="ns-unknown">${esc(t('nsDocsUnknown'))}</p>`;
